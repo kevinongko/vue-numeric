@@ -11,7 +11,8 @@
     "bugs": {
         "url": "https://github.com/kevinongko/vue-numeric/issues"
     },
-    "keywords": {
+    "keywords": [
+        "component",
         "currency",
         "input",
         "text",
@@ -19,9 +20,8 @@
         "numeric",
         "separator",
         "vue",
-        "vue.js",
-        "component"
-    },
+        "vue.js"
+    ],
     "homepage": "https://github.com/kevinongko/vue-numeric#readme",
     "license": "MIT"
 }
