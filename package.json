@@ -1,0 +1,16 @@
+{
+    "name": "vue-numeric",
+    "version": "1.0.0",
+    "description": "Numeric input component based on Vue",
+    "author": "Kevin Ongko",
+    "main": "src/vue-numeric.vue",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kevinongko/vue-numeric.git"
+    },
+    "bugs": {
+        "url": "https://github.com/kevinongko/vue-numeric/issues"
+    },
+    "homepage": "https://github.com/kevinongko/vue-numeric#readme",
+    "license": "MIT"
+}
