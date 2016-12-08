@@ -5,6 +5,8 @@
 
 Numeric input component based on [Vue](https://vuejs.org/).
 
+![screen shot 2016-12-08 at 2 19 31 pm](https://cloud.githubusercontent.com/assets/15880638/21001265/f2322438-bd51-11e6-8985-f31a45702484.png)
+
 ## Installation
 
 ```sh
