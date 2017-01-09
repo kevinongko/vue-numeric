@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 export default {
 
   name: 'vue-numeric',
@@ -45,11 +43,11 @@ export default {
 
   computed: {
     defaultValue () {
-      return _.toNumber(this.value)
+      return this.formatToNumber(this.value)
     },
 
     amountValue () {
-      return _.toNumber(this.amount)
+      return this.formatToNumber(this.amount)
     }
   },
 
@@ -70,14 +68,18 @@ export default {
       return true
     },
 
-    format (value) {
+    formatToNumber (value) {
+      +value.replace(/[^0-9]+/g, '')
+    },
+
+    formatToCurrency (value) {
       const numberWithSeparator = Number(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
       return this.currency + ' ' + numberWithSeparator
     },
 
     updateValue (value) {
       if (this.checkMinValue(value) && this.checkMaxValue(value)) {
-        this.amount = this.format(value)
+        this.amount = this.formatToCurrency(value)
         this.$emit('input', value)
       }
     }
