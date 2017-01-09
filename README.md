@@ -45,6 +45,59 @@ export default {
 
 ```
 
+## Props
+```js
+
+ /**
+  * Default value.
+  */
+ default: {
+   type: [String, Number],
+   required: false
+ },
+ 
+ /**
+  * Input placeholder.
+  */
+ placeholder: {
+   type: String,
+   required: false
+ },
+ 
+ /**
+  * Minimum value.
+  */
+ min: {
+   type: [String, Number],
+   required: false
+ },
+ 
+ /**
+  * Maximum value.
+  */
+ max: {
+   type: [String, Number],
+   required: false
+ },
+
+ /**
+  * Currency prefix.
+  */
+ currency: {
+   type: String,
+   required: true
+ },
+ 
+ /**
+  * Thousand separator type.
+  */
+ separator: {
+   type: String,
+   required: false
+ },
+
+```
+
 ## License
 
 Vue-Numeric is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
