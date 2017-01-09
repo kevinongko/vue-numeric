@@ -1,21 +1,29 @@
 <template>
-  <input type="tel" ref="numeric" :value="value" @input="updateValue(amount)" v-model="amount">
+  <input type="tel" :placeholder="placeholder" ref="numeric" @input="processValue(amountValue)" v-model="amount">
 </template>
 
 <script>
 export default {
-
   name: 'Vue-Numeric',
 
   props: {
+    default: {
+      required: false,
+      type: [String, Number]
+    },
+
     placeholder: {
       required: false,
       type: String
     },
 
-    value: {
-      default: 0,
-      required: true,
+    min: {
+      required: false,
+      type: [String, Number]
+    },
+
+    max: {
+      required: false,
       type: [String, Number]
     },
 
@@ -32,28 +40,74 @@ export default {
     }
   },
 
-  data () {
-    return {
-      amount: ''
+  data: () => ({
+    amount: ''
+  }),
+
+  computed: {
+    amountValue () {
+      return this.formatToNumber(this.amount)
+    },
+
+    defaultValue () {
+      if (this.default) return this.formatToNumber(this.default)
+      return 0
+    },
+
+    minValue () {
+      return this.formatToNumber(this.min)
+    },
+
+    maxValue () {
+      return this.formatToNumber(this.max)
     }
   },
 
   mounted () {
-    this.updateValue(this.value)
+    if (this.default) this.processValue(this.defaultValue)
   },
 
   methods: {
-    updateValue (value) {
-      const number = +value.replace(/[^0-9]+/g, '')
-      this.amount = this.format(number)
-      this.$emit('input', number)
+    checkMaxValue (value) {
+      if (this.max) {
+        if (value <= this.maxValue) return false
+        return true
+      }
+      return false
     },
 
-    format (value) {
-      const numberWithSeparator = Number(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
-      return this.currency + ' ' + numberWithSeparator
-    }
-  }
+    checkMinValue (value) {
+      if (this.min) {
+        if (value >= this.minValue) return false
+        return true
+      }
+      return false
+    },
 
+    formatToNumber (value) {
+      return Number(+value.replace(/[^0-9]+/g, ''))
+    },
+
+    formatToCurrency (value) {
+      const numberWithSeparator = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
+      return this.currency + ' ' + numberWithSeparator
+    },
+
+    processValue (value) {
+      if (this.checkMaxValue(value)) {
+        this.updateValue(this.maxValue)
+      } else if (this.checkMinValue(value)) {
+        this.updateValue(this.minValue)
+      } else {
+        this.updateValue(value)
+      }
+    },
+
+    updateValue (value) {
+      this.amount = this.formatToCurrency(value)
+      this.$emit('input', value)
+    }
+
+  }
 }
 </script>
