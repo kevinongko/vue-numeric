@@ -1,8 +1,7 @@
 # vue-numeric
 
 [![npm version](https://badge.fury.io/js/vue-numeric.svg)](https://badge.fury.io/js/vue-numeric)
-[![npm](https://img.shields.io/npm/dt/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
-[![npm](https://img.shields.io/npm/l/vue-numeric.svg)](http://opensource.org/licenses/MIT)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://opensource.org/licenses/MIT)
 
 Numeric input component based on [Vue](https://vuejs.org/).
 
@@ -29,17 +28,17 @@ import VueNumeric from 'vue-numeric'
 export default {
 
   name: 'App',
-  
+
   components: {
     VueNumeric
   },
-  
+
   data () {
     return {
       price: ''
     }
   }
-  
+
 }
 </script>
 

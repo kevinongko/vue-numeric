@@ -1,16 +1,29 @@
 <template>
-  <input type="tel" ref="numeric" :value="value" @input="updateValue(amountValue)" v-model="amount">
+  <input type="tel" :placeholder="placeholder" ref="numeric" @input="processValue(amountValue)" v-model="amount">
 </template>
 
 <script>
 export default {
-
-  name: 'vue-numeric',
+  name: 'Vue-Numeric',
 
   props: {
-    value: {
-      default: 0,
-      required: true,
+    default: {
+      required: false,
+      type: [String, Number]
+    },
+
+    placeholder: {
+      required: false,
+      type: String
+    },
+
+    min: {
+      required: false,
+      type: [String, Number]
+    },
+
+    max: {
+      required: false,
       type: [String, Number]
     },
 
@@ -18,16 +31,6 @@ export default {
       default: '',
       required: false,
       type: String
-    },
-
-    min: {
-      required: false,
-      type: Number
-    },
-
-    max: {
-      required: false,
-      type: Number
     },
 
     separator: {
@@ -42,51 +45,69 @@ export default {
   }),
 
   computed: {
-    defaultValue () {
-      return this.formatToNumber(this.value)
-    },
-
     amountValue () {
       return this.formatToNumber(this.amount)
-    }
-  },
-
-  methods: {
-    checkMinValue (value) {
-      if (this.min) {
-        if (value >= this.min) return true
-        return false
-      }
-      return true
     },
 
-    checkMaxValue (value) {
-      if (this.max) {
-        if (value <= this.max) return true
-        return false
-      }
-      return true
+    defaultValue () {
+      if (this.default) return this.formatToNumber(this.default)
+      return 0
     },
 
-    formatToNumber (value) {
-      +value.replace(/[^0-9]+/g, '')
+    minValue () {
+      return this.formatToNumber(this.min)
     },
 
-    formatToCurrency (value) {
-      const numberWithSeparator = Number(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
-      return this.currency + ' ' + numberWithSeparator
-    },
-
-    updateValue (value) {
-      if (this.checkMinValue(value) && this.checkMaxValue(value)) {
-        this.amount = this.formatToCurrency(value)
-        this.$emit('input', value)
-      }
+    maxValue () {
+      return this.formatToNumber(this.max)
     }
   },
 
   mounted () {
-    this.updateValue(this.defaultValue)
+    if (this.default) this.processValue(this.defaultValue)
+  },
+
+  methods: {
+    checkMaxValue (value) {
+      if (this.max) {
+        if (value <= this.maxValue) return false
+        return true
+      }
+      return false
+    },
+
+    checkMinValue (value) {
+      if (this.min) {
+        if (value >= this.minValue) return false
+        return true
+      }
+      return false
+    },
+
+    formatToNumber (value) {
+      return Number(+value.replace(/[^0-9]+/g, ''))
+    },
+
+    formatToCurrency (value) {
+      const numberWithSeparator = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
+      return this.currency + ' ' + numberWithSeparator
+    },
+
+    processValue (value) {
+      if (this.checkMaxValue(value)) {
+        this.updateValue(this.maxValue)
+      } else if (this.checkMinValue(value)) {
+        this.updateValue(this.minValue)
+      } else {
+        this.updateValue(value)
+      }
+    },
+
+    updateValue (value) {
+      this.amount = this.formatToCurrency(value)
+      this.$emit('input', value)
+    }
+
   }
 }
 </script>
