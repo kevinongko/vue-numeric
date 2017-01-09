@@ -1,18 +1,15 @@
 <template>
-  <input type="tel" ref="numeric" :value="value" @input="updateValue(amount)" v-model="amount">
+  <input type="tel" ref="numeric" :value="value" @input="updateValue(amountValue)" v-model="amount">
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
 
-  name: 'Vue-Numeric',
+  name: 'vue-numeric',
 
   props: {
-    placeholder: {
-      required: false,
-      type: String
-    },
-
     value: {
       default: 0,
       required: true,
@@ -25,6 +22,16 @@ export default {
       type: String
     },
 
+    min: {
+      required: false,
+      type: Number
+    },
+
+    max: {
+      required: false,
+      type: Number
+    },
+
     separator: {
       default: '',
       required: false,
@@ -32,28 +39,52 @@ export default {
     }
   },
 
-  data () {
-    return {
-      amount: ''
+  data: () => ({
+    amount: ''
+  }),
+
+  computed: {
+    defaultValue () {
+      return _.toNumber(this.value)
+    },
+
+    amountValue () {
+      return _.toNumber(this.amount)
     }
   },
 
-  mounted () {
-    this.updateValue(this.value)
-  },
-
   methods: {
-    updateValue (value) {
-      const number = +value.replace(/[^0-9]+/g, '')
-      this.amount = this.format(number)
-      this.$emit('input', number)
+    checkMinValue (value) {
+      if (this.min) {
+        if (value >= this.min) return true
+        return false
+      }
+      return true
+    },
+
+    checkMaxValue (value) {
+      if (this.max) {
+        if (value <= this.max) return true
+        return false
+      }
+      return true
     },
 
     format (value) {
       const numberWithSeparator = Number(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
       return this.currency + ' ' + numberWithSeparator
-    }
-  }
+    },
 
+    updateValue (value) {
+      if (this.checkMinValue(value) && this.checkMaxValue(value)) {
+        this.amount = this.format(value)
+        this.$emit('input', value)
+      }
+    }
+  },
+
+  mounted () {
+    this.updateValue(this.defaultValue)
+  }
 }
 </script>
