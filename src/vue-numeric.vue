@@ -1,15 +1,27 @@
 <template>
-  <input type="tel" :placeholder="placeholder" ref="numeric" @input="processValue(amountValue)" v-model="amount">
+  <input type="tel" :value="value" v-model="amount" ref="numeric" :placeholder="placeholder" @blur="processValue(amountValue)">
 </template>
 
 <script>
+import accounting from 'accounting-js'
+
 export default {
   name: 'Vue-Numeric',
 
   props: {
+    value: {
+      type: [Number, String],
+      required: true
+    },
+
     default: {
       required: false,
-      type: [String, Number]
+      type: [Number, String]
+    },
+
+    precision: {
+      required: false,
+      type: [Number, String]
     },
 
     placeholder: {
@@ -18,8 +30,9 @@ export default {
     },
 
     min: {
+      default: 0,
       required: false,
-      type: [String, Number]
+      type: [Number, String]
     },
 
     max: {
@@ -34,8 +47,8 @@ export default {
     },
 
     separator: {
-      default: '',
-      required: false,
+      default: ',',
+      required: true,
       type: String
     }
   },
@@ -55,11 +68,23 @@ export default {
     },
 
     minValue () {
-      return this.formatToNumber(this.min)
+      if (this.min) return this.formatToNumber(this.min)
+      return undefined
     },
 
     maxValue () {
-      return this.formatToNumber(this.max)
+      if (this.max) return this.formatToNumber(this.max)
+      return undefined
+    },
+
+    decimalSeparator () {
+      if (this.separator === '.') return ','
+      return '.'
+    },
+
+    thousandSeparator () {
+      if (this.separator === '.') return '.'
+      return ','
     }
   },
 
@@ -85,16 +110,14 @@ export default {
     },
 
     formatToNumber (value) {
-      return Number(+value.replace(/[^0-9]+/g, ''))
-    },
-
-    formatToCurrency (value) {
-      const numberWithSeparator = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
-      return this.currency + ' ' + numberWithSeparator
+      if (this.thousandSeparator === '.') return Number(+value.replace(/[^0-9,]+/g, '').replace(',', '.'))
+      if (this.thousandSeparator === ',') return Number(+value.replace(/[^0-9.]+/g, ''))
     },
 
     processValue (value) {
-      if (this.checkMaxValue(value)) {
+      if (isNaN(value)) {
+        this.updateValue(this.minValue)
+      } else if (this.checkMaxValue(value)) {
         this.updateValue(this.maxValue)
       } else if (this.checkMinValue(value)) {
         this.updateValue(this.minValue)
@@ -104,10 +127,15 @@ export default {
     },
 
     updateValue (value) {
-      this.amount = this.formatToCurrency(value)
-      this.$emit('input', value)
-    }
+      this.amount = accounting.formatMoney(value, {
+        symbol: this.currency + ' ',
+        precision: Number(this.precision),
+        decimal: this.decimalSeparator,
+        thousand: this.thousandSeparator
+      })
 
+      this.$emit('input', accounting.toFixed(value, this.precision))
+    }
   }
 }
 </script>
