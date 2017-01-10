@@ -69,7 +69,7 @@ export default {
 
     minValue () {
       if (this.min) return this.formatToNumber(this.min)
-      return undefined
+      return 0
     },
 
     maxValue () {

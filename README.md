@@ -55,7 +55,7 @@ export default {
    type: [String, Number],
    required: false
  },
- 
+
  /**
   * Input placeholder.
   */
@@ -63,7 +63,16 @@ export default {
    type: String,
    required: false
  },
- 
+
+  /**
+  * Number of decimals.
+  * decimals symbol are the opposite of separator props
+  */
+ precision: {
+   type: [String, Number]
+   required: false
+ },
+
  /**
   * Minimum value.
   */
@@ -71,7 +80,7 @@ export default {
    type: [String, Number],
    required: false
  },
- 
+
  /**
   * Maximum value.
   */
@@ -87,9 +96,10 @@ export default {
    type: String,
    required: true
  },
- 
+
  /**
   * Thousand separator type.
+  * Separator props accept either . or , (default)
   */
  separator: {
    type: String,
