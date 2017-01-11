@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dt/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/l/vue-numeric.svg)](http://opensource.org/licenses/MIT)
 
-Numeric input component based on [Vue](https://vuejs.org/).
+Input field component to display currency value based on [Vue](https://vuejs.org/).
 
 ## Installation
 
