@@ -1,5 +1,5 @@
 <template>
-  <input type="tel" :value="value" v-model="amount" ref="numeric" :placeholder="placeholder" @blur="processValue(amountValue)">
+  <input type="tel" v-model="amount" :value="value" :placeholder="placeholder" @blur="processValue(amountValue)">
 </template>
 
 <script>
@@ -134,7 +134,7 @@ export default {
         thousand: this.thousandSeparator
       })
 
-      this.$emit('input', accounting.toFixed(value, this.precision))
+      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
     }
   }
 }
