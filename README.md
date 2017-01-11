@@ -9,7 +9,7 @@ Numeric input component based on [Vue](https://vuejs.org/).
 ## Installation
 
 ```sh
-$ npm install vue-numeric --save-dev
+$ npm install vue-numeric --save
 ```
 
 
@@ -34,12 +34,9 @@ export default {
     VueNumeric
   },
 
-  data () {
-    return {
-      price: ''
-    }
-  }
-
+  data: () => ({
+    price: ''
+  }),
 }
 </script>
 
@@ -47,68 +44,77 @@ export default {
 
 ## Props
 ```js
-
- /**
-  * Default value.
-  */
- default: {
-   type: [String, Number],
-   required: false
- },
-
- /**
-  * Input placeholder.
-  */
- placeholder: {
-   type: String,
-   required: false
- },
+  /**
+    * Currency symbol.
+    */
+  currency: {
+    default: '',
+    required: false,
+    type: String
+  },
 
   /**
-  * Number of decimals.
-  * decimals symbol are the opposite of separator props
-  */
- precision: {
-   type: [String, Number]
-   required: false
- },
+    * Default value.
+    */
+  default: {
+    required: false,
+    type: [Number, String]
+  },
 
- /**
-  * Minimum value.
-  */
- min: {
-   type: [String, Number],
-   required: false
- },
+  /**
+    * Maximum value allowed.
+    */
+  max: {
+    required: false,
+    type: [Number, String]
+  },
 
- /**
-  * Maximum value.
-  */
- max: {
-   type: [String, Number],
-   required: false
- },
+  /**
+    * Minimum value allowed.
+    */
+  min: {
+    default: 0,
+    required: false,
+    type: [Number, String]
+  },
 
- /**
-  * Currency prefix.
-  */
- currency: {
-   type: String,
-   required: true
- },
+  /**
+    * Enable/Disable minus value.
+    */
+  minus: {
+    default: true,
+    required: false,
+    type: Boolean
+  },
 
- /**
-  * Thousand separator type.
-  * Separator props accept either . or , (default)
-  */
- separator: {
-   type: String,
-   required: false
- },
+  /**
+    * Input placeholder.
+    */
+  placeholder: {
+    required: false,
+    type: String
+  },
 
+  /**
+    * Number of decimals.
+    * Decimals symbol are the opposite of separator symbol.
+    */
+  precision: {
+    required: false,
+    type: [Number, String]
+  },
+
+  /**
+    * Thousand separator type.
+    * Separator props accept either . or , (default).
+    */
+  separator: {
+    default: ',',
+    required: false,
+    type: String
+  }
 ```
 
 ## License
 
 Vue-Numeric is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
-
