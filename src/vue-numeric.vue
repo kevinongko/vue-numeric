@@ -48,7 +48,7 @@ export default {
 
     separator: {
       default: ',',
-      required: true,
+      required: false,
       type: String
     }
   },
