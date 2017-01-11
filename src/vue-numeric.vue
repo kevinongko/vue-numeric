@@ -80,8 +80,8 @@ export default {
     },
 
     /**
-      * v-model value.
-      */
+     * v-model value.
+     */
     value: {
       required: true,
       type: [Number, String]
@@ -94,53 +94,53 @@ export default {
 
   computed: {
     /**
-      * Number formatted user typed value.
-      * @return {Number}
-      */
+     * Number formatted user typed value.
+     * @return {Number}
+     */
     amountValue () {
       return this.formatToNumber(this.amount)
     },
 
     /**
-      * Number formatted default value.
-      * @return {Number}
-      */
+     * Number formatted default value.
+     * @return {Number}
+     */
     defaultValue () {
       if (this.default) return this.formatToNumber(this.default)
       return 0
     },
 
     /**
-      * Number formatted minimum value.
-      * @return {Number}
-      */
+     * Number formatted minimum value.
+     * @return {Number}
+     */
     minValue () {
       if (this.min) return this.formatToNumber(this.min)
       return 0
     },
 
     /**
-      * Number formatted maximum value.
-      * @return {Number|undefined}
-      */
+     * Number formatted maximum value.
+     * @return {Number|undefined}
+     */
     maxValue () {
       if (this.max) return this.formatToNumber(this.max)
       return undefined
     },
 
     /**
-      * Define decimal separator based on separator props.
-      * @return {String} '.' or ','
-      */
+     * Define decimal separator based on separator props.
+     * @return {String} '.' or ','
+     */
     decimalSeparator () {
       if (this.separator === '.') return ','
       return '.'
     },
 
     /**
-      * Define thousand separator based on separator props.
-      * @return {String} '.' or ','
-      */
+     * Define thousand separator based on separator props.
+     * @return {String} '.' or ','
+     */
     thousandSeparator () {
       if (this.separator === '.') return '.'
       return ','
@@ -149,10 +149,10 @@ export default {
 
   methods: {
     /**
-      * Check provided value againts maximum allowed.
-      * @param {Number} value
-      * @return {Boolean}
-      */
+     * Check provided value againts maximum allowed.
+     * @param {Number} value
+     * @return {Boolean}
+     */
     checkMaxValue (value) {
       if (this.max) {
         if (value <= this.maxValue) return false
@@ -162,10 +162,10 @@ export default {
     },
 
     /**
-      * Check provided value againts minimum allowed.
-      * @param {Number} value
-      * @return {Boolean}
-      */
+     * Check provided value againts minimum allowed.
+     * @param {Number} value
+     * @return {Boolean}
+     */
     checkMinValue (value) {
       if (this.min) {
         if (value >= this.minValue) return false
@@ -175,10 +175,10 @@ export default {
     },
 
     /**
-      * Format provided value to number type.
-      * @param {String} value
-      * @return {Number}
-      */
+     * Format provided value to number type.
+     * @param {String} value
+     * @return {Number}
+     */
     formatToNumber (value) {
       let number = 0
 
@@ -193,9 +193,9 @@ export default {
     },
 
     /**
-      * Validate value before apply to the component.
-      * @param {Number} value
-      */
+     * Validate value before apply to the component.
+     * @param {Number} value
+     */
     processValue (value) {
       if (isNaN(value)) {
         this.updateValue(this.minValue)
@@ -209,9 +209,9 @@ export default {
     },
 
     /**
-      * Apply value to component.
-      * @param {Number} value
-      */
+     * Apply value to component.
+     * @param {Number} value
+     */
     updateValue (value) {
       this.amount = accounting.formatMoney(value, {
         symbol: this.currency + ' ',
