@@ -224,9 +224,10 @@ export default {
     }
   },
 
-  mounted () {
-    // Apply default value if available.
-    if (this.default) this.processValue(this.defaultValue)
+  watch: {
+    'default' (val, old) {
+      this.processValue(this.defaultValue)
+    }
   }
 }
 </script>
