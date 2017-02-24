@@ -228,6 +228,10 @@ export default {
     'default' (val, old) {
       this.processValue(this.defaultValue)
     }
+  },
+
+  mounted () {
+    if (this.defaultValue) this.processValue(this.defaultValue)
   }
 }
 </script>
