@@ -1,5 +1,5 @@
 <template>
-  <input type="tel" :value="value" v-model="amount" ref="numeric" :placeholder="placeholder" @blur="processValue(amountValue)">
+  <input type="tel" :value="value" v-model="amount" ref="numeric" :placeholder="placeholder" @blur="processValue(amountValue)" @focus="formatValueToNumberType">
 </template>
 
 <script>
@@ -221,6 +221,10 @@ export default {
       })
 
       this.$emit('input', Number(accounting.toFixed(value, this.precision)))
+    },
+
+    formatValueToNumberType () {
+      this.amount = this.value
     }
   },
 
