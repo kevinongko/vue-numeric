@@ -104,7 +104,7 @@ By default the decimal value is disabled, to use decimal value add `precision` p
 |minus|Enable/disable minus value|false|Boolean|true|
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number, String|-|
-|separator|Thousand separator type ( accept either `.` or `,`)|false|String|,|
+|separator|Thousand separator type ( accept either `.` or `,` )|false|String|,|
 
 ## License
 
