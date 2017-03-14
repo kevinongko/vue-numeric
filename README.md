@@ -95,77 +95,16 @@ By default the decimal value is disabled, to use decimal value add `precision` p
 ```
 
 ## Props
-```js
-  /**
-   * Currency symbol.
-   */
-  currency: {
-    default: '',
-    required: false,
-    type: String
-  },
-
-  /**
-   * Default value.
-   */
-  default: {
-    required: false,
-    type: [Number, String]
-  },
-
-  /**
-   * Maximum value allowed.
-   */
-  max: {
-    required: false,
-    type: [Number, String]
-  },
-
-  /**
-   * Minimum value allowed.
-   */
-  min: {
-    default: 0,
-    required: false,
-    type: [Number, String]
-  },
-
-  /**
-   * Enable/Disable minus value.
-   */
-  minus: {
-    default: true,
-    required: false,
-    type: Boolean
-  },
-
-  /**
-   * Input placeholder.
-   */
-  placeholder: {
-    required: false,
-    type: String
-  },
-
-  /**
-   * Number of decimals.
-   * Decimals symbol are the opposite of separator symbol.
-   */
-  precision: {
-    required: false,
-    type: [Number, String]
-  },
-
-  /**
-   * Thousand separator type.
-   * Separator props accept either . or , (default).
-   */
-  separator: {
-    default: ',',
-    required: false,
-    type: String
-  }
-```
+|Props|Description|Required|Type|Default|
+|-----|-----------|--------|----|-------|
+|currency|Currency prefix|false|String|-|
+|default|Input default value|false|Number, String|-|
+|max|Maximum value allowed|false|Number, String|-|
+|min|Minimum value allowed|false|Number, String|0|
+|minus|Enable/disable minus value|false|Boolean|true|
+|placeholder|Input placeholder|false|String|-|
+|precision|Number of decimals|false|Number, String|-|
+|separator|Thousand separator type ( accept either `.` or `,`)|false|String|,|
 
 ## License
 
