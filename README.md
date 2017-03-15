@@ -6,6 +6,8 @@
 
 Input field component to display currency value based on [Vue](https://vuejs.org/).
 
+[Live Demo](https://kevinongko.github.io/vue-numeric/)
+
 `Works with Vue 2.*`
 
 ## Installation
