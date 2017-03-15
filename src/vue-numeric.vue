@@ -248,11 +248,15 @@ export default {
   watch: {
     'default' (val, old) {
       this.processValue(this.defaultValue)
+      this.formatValue(this.defaultValue)
     }
   },
 
   mounted () {
-    if (this.defaultValue) this.processValue(this.defaultValue)
+    if (this.defaultValue) {
+      this.processValue(this.defaultValue)
+      this.formatValue(this.defaultValue)
+    }
   }
 }
 </script>
