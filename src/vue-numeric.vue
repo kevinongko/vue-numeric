@@ -1,5 +1,14 @@
 <template>
-  <input type="tel" :value="value" v-model="amount" ref="numeric" :placeholder="placeholder" @blur="processValue(amountValue)" @focus="formatValueToNumberType">
+  <input
+    :placeholder="placeholder"
+    :value="value"
+    @blur="formatValue(amountValue)"
+    @input="processValue(amountValue)"
+    @focus="convertValueToNumberType"
+    ref="numeric"
+    type="tel"
+    v-model="amount"
+  >
 </template>
 
 <script>
@@ -47,7 +56,7 @@ export default {
      * Enable/Disable minus value.
      */
     minus: {
-      default: true,
+      default: false,
       required: false,
       type: Boolean
     },
@@ -209,21 +218,29 @@ export default {
     },
 
     /**
-     * Apply value to component.
-     * @param {Number} value
+     * Format value using symbol and separator.
      */
-    updateValue (value) {
-      this.amount = accounting.formatMoney(value, {
+    formatValue () {
+      this.amount = accounting.formatMoney(this.value, {
         symbol: this.currency + ' ',
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
         thousand: this.thousandSeparator
       })
+    },
 
+    /**
+     * Update parent component model value.
+     * @param {Number} value
+     */
+    updateValue (value) {
       this.$emit('input', Number(accounting.toFixed(value, this.precision)))
     },
 
-    formatValueToNumberType () {
+    /**
+     * Remove symbol and separator on focus.
+     */
+    convertValueToNumberType () {
       this.amount = this.value
     }
   },

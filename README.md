@@ -6,14 +6,13 @@
 
 Input field component to display currency value based on [Vue](https://vuejs.org/).
 
-``Works with Vue 2.*``
+`Works with Vue 2.*`
 
 ## Installation
 
 ```sh
 $ npm install vue-numeric --save
 ```
-
 
 ## Usage
 
@@ -65,7 +64,7 @@ Limit minimum and maximum input by using `min, max` props.
 ```
 
 ### Disable/enable minus value
-- `minus` default to `true`.
+- `minus` default to `false`.
 
 ```vue
 <vue-numeric v-bind:minus="false"></vue-numeric>
@@ -101,7 +100,7 @@ By default the decimal value is disabled, to use decimal value add `precision` p
 |default|Input default value|false|Number, String|-|
 |max|Maximum value allowed|false|Number, String|-|
 |min|Minimum value allowed|false|Number, String|0|
-|minus|Enable/disable minus value|false|Boolean|true|
+|minus|Enable/disable minus value|false|Boolean|false|
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number, String|-|
 |separator|Thousand separator type ( accept either `.` or `,` )|false|String|,|
