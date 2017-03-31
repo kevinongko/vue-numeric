@@ -4,7 +4,7 @@
     :value="value"
     @blur="formatValue(amountValue)"
     @input="processValue(amountValue)"
-    @focus="convertValueToNumberType"
+    @focus="convertToNumber"
     ref="numeric"
     type="tel"
     v-model="amount"
@@ -240,8 +240,13 @@ export default {
     /**
      * Remove symbol and separator on focus.
      */
-    convertValueToNumberType () {
-      this.amount = this.value
+    convertToNumber () {
+      this.amount = accounting.formatMoney(this.value, {
+        symbol: '',
+        precision: Number(this.precision),
+        decimal: this.decimalSeparator,
+        thousand: ''
+      })
     }
   },
 
