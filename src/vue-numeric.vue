@@ -28,14 +28,6 @@ export default {
     },
 
     /**
-     * Default value.
-     */
-    default: {
-      required: false,
-      type: [Number, String]
-    },
-
-    /**
      * Maximum value allowed.
      */
     max: {
@@ -108,15 +100,6 @@ export default {
      */
     amountValue () {
       return this.formatToNumber(this.amount)
-    },
-
-    /**
-     * Number formatted default value.
-     * @return {Number}
-     */
-    defaultValue () {
-      if (this.default) return this.formatToNumber(this.default)
-      return 0
     },
 
     /**
@@ -250,18 +233,18 @@ export default {
     }
   },
 
-  watch: {
-    'default' (val, old) {
-      this.processValue(this.defaultValue)
-      this.formatValue(this.defaultValue)
-    }
-  },
-
   mounted () {
-    if (this.defaultValue) {
-      this.processValue(this.defaultValue)
-      this.formatValue(this.defaultValue)
+    // Check default value from parent v-model.
+    if (this.value) {
+      this.processValue(this.value)
+      this.formatValue(this.value)
     }
+
+    // In case of delayed v-model new value.
+    setTimeout(() => {
+      this.processValue(this.value)
+      this.formatValue(this.value)
+    }, 500)
   }
 }
 </script>
