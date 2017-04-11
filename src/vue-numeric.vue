@@ -236,13 +236,13 @@ export default {
   mounted () {
     // Check default value from parent v-model.
     if (this.value) {
-      this.processValue(this.value)
+      this.processValue(this.formatToNumber(this.value))
       this.formatValue(this.value)
     }
 
     // In case of delayed v-model new value.
     setTimeout(() => {
-      this.processValue(this.value)
+      this.processValue(this.formatToNumber(this.value))
       this.formatValue(this.value)
     }, 500)
   }
