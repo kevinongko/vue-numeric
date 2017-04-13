@@ -1,6 +1,6 @@
 # vue-numeric
 
-[![npm version](https://badge.fury.io/js/vue-numeric.svg)](https://badge.fury.io/js/vue-numeric)
+[![npm](https://img.shields.io/npm/v/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/dt/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/dm/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/l/vue-numeric.svg)](http://opensource.org/licenses/MIT)
