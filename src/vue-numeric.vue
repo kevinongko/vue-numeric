@@ -2,9 +2,9 @@
   <input
     :placeholder="placeholder"
     :value="value"
-    @blur="formatValue(amountValue)"
+    @blur="formatValue"
     @input="processValue(amountValue)"
-    @focus="convertToNumber"
+    @focus="convertToNumber(numberValue)"
     ref="numeric"
     type="tel"
     v-model="amount"
@@ -100,6 +100,14 @@ export default {
      */
     amountValue () {
       return this.formatToNumber(this.amount)
+    },
+
+    /**
+     * Number type from value props.
+     * @return {Number}
+     */
+    numberValue () {
+      return this.formatToNumber(this.value)
     },
 
     /**
@@ -204,7 +212,7 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      this.amount = accounting.formatMoney(this.value, {
+      this.amount = accounting.formatMoney(this.numberValue, {
         symbol: this.currency + ' ',
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
@@ -221,15 +229,29 @@ export default {
     },
 
     /**
-     * Remove symbol and separator on focus.
+     * Remove symbol and separator.
+     * @param {Number} value
      */
-    convertToNumber () {
-      this.amount = accounting.formatMoney(this.value, {
+    convertToNumber (value) {
+      this.amount = accounting.formatMoney(value, {
         symbol: '',
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
         thousand: ''
       })
+    }
+  },
+
+  watch: {
+    /**
+     * Watch for value change from other input.
+     * @param {Number} val
+     * @param {Number} oldVal
+     */
+    numberValue (val, oldVal) {
+      if (this.amountValue !== val && this.amountValue === oldVal) {
+        this.convertToNumber(val)
+      }
     }
   },
 
