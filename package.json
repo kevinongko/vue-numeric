@@ -28,7 +28,8 @@
     "accounting-js": "^1.1.1"
   },
   "scripts": {
-    "test": "karma start --single-run=false"
+    "test": "karma start",
+    "test:watch": "karma start --single-run=false"
   },
   "devDependencies": {
      "babel-core": "^6.21.0",
