@@ -28,5 +28,49 @@ describe("vue-numeric", function() {
 
   });
 
+  it('updates value with format if without focus', done => {
+    const vm = new Vue({
+      el,
+      data: function() {
+        return {
+          total: 0
+        }
+      },
+      template: '<div><vue-numeric v-model="total"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.total = 3000;
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.value.trim()).toEqual('3,000')
+      done()
+    });
+
+  });
+
+
+  it('updates value without format', done => {
+    const vm = new Vue({
+      el,
+      data: function() {
+        return {
+          total: 0
+        }
+      },
+      template: '<div><vue-numeric v-model="total"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.$el.firstChild.focus();
+    vm.total = 3000;
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.value.trim()).toEqual('3000');
+      done()
+    });
+
+  });
+
 
 });

@@ -251,6 +251,9 @@ export default {
     numberValue (val, oldVal) {
       if (this.amountValue !== val && this.amountValue === oldVal) {
         this.convertToNumber(val)
+        if (this.$el !== document.activeElement) {
+          this.formatValue(val)
+        }
       }
     }
   },
