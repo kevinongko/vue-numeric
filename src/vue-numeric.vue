@@ -183,9 +183,9 @@ export default {
       let number = 0
 
       if (this.separator === '.') {
-        let cleanValue = value;
-        if (typeof value != 'string') {
-          cleanValue = this.numberToString(value);
+        let cleanValue = value
+        if (typeof value !== 'string') {
+          cleanValue = this.numberToString(value)
         }
         number = Number(String(cleanValue).replace(/[^0-9-,]+/g, '').replace(',', '.'))
       } else {
@@ -250,7 +250,7 @@ export default {
      * @param {Number} value
      */
     convertToNumber (value) {
-      this.amount = this.numberToString(value);
+      this.amount = this.numberToString(value)
     }
   },
 
@@ -263,7 +263,7 @@ export default {
     numberValue (val, oldVal) {
       if (this.amountValue !== val && this.amountValue === oldVal) {
         this.convertToNumber(val)
-        if (this.$el !== document.activeElement) {
+        if (this.$refs.numeric !== document.activeElement) {
           this.formatValue(val)
         }
       }
