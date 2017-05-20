@@ -1,6 +1,6 @@
 {
   "name": "vue-numeric",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Input field component to display currency value based on Vue.",
   "author": "Kevin Ongko",
   "main": "src/vue-numeric.vue",
@@ -32,23 +32,26 @@
     "test:watch": "karma start --single-run=false"
   },
   "devDependencies": {
-     "babel-core": "^6.21.0",
-     "babel-loader": "^6.0.0",
-     "babel-preset-es2015": "^6.18.0",
-     "babel-register": "^6.23.0",
-     "cross-env": "^4.0.0",
-     "jasmine": "^2.5.3",
-     "karma": "^1.4.0",
-     "karma-chrome-launcher": "^2.0.0",
-     "karma-jasmine": "^1.1.0",
-     "karma-phantomjs-launcher": "^1.0.2",
-     "karma-spec-reporter": "0.0.26",
-     "karma-webpack": "^2.0.3",
-     "vue": "^2.1.8",
-     "vue-loader": "^11.1.4",
-     "vue-router": "^2.4.0",
-     "vue-template-compiler": "^2.2.1",
-     "webpack": "^2.2.0",
-     "webpack-dev-server": "^2.2.0"
-   }
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "cross-env": "^5.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-vue": "^2.0.2",
+    "eslint-plugin-vue": "^2.0.1",
+    "jasmine": "^2.6.0",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-spec-reporter": "^0.0.31",
+    "karma-webpack": "^2.0.3",
+    "vue": "^2.3.3",
+    "vue-loader": "^12.1.0",
+    "vue-router": "^2.5.3",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  }
 }
