@@ -183,7 +183,11 @@ export default {
       let number = 0
 
       if (this.separator === '.') {
-        number = Number(String(value).replace(/[^0-9-,]+/g, '').replace(',', '.'))
+        let cleanValue = value;
+        if (typeof value != 'string') {
+          cleanValue = this.numberToString(value);
+        }
+        number = Number(String(cleanValue).replace(/[^0-9-,]+/g, '').replace(',', '.'))
       } else {
         number = Number(String(value).replace(/[^0-9-.]+/g, ''))
       }
@@ -232,13 +236,21 @@ export default {
      * Remove symbol and separator.
      * @param {Number} value
      */
-    convertToNumber (value) {
-      this.amount = accounting.formatMoney(value, {
+    numberToString (value) {
+      return accounting.formatMoney(value, {
         symbol: '',
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
         thousand: ''
       })
+    },
+
+    /**
+     * Remove symbol and separator.
+     * @param {Number} value
+     */
+    convertToNumber (value) {
+      this.amount = this.numberToString(value);
     }
   },
 

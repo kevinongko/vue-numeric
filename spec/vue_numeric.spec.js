@@ -49,6 +49,87 @@ describe("vue-numeric", function() {
 
   });
 
+  it('updates values decimals', done => {
+    const vm = new Vue({
+      el,
+      data: function() {
+        return {
+          total: 0
+        }
+      },
+      template: `<div>
+        <vue-numeric v-model="total" separator="." precision="2"></vue-numeric>
+        <span>{{total}}</span>
+      </div>`,
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.total = 3000;
+
+    Vue.nextTick(() => {
+      const span = vm.$el.getElementsByTagName('span')[0];
+      expect(span.textContent.trim()).toEqual('3000');
+      expect(vm.$el.firstChild.value.trim()).toEqual('3.000,00')
+      done()
+    });
+
+  });
+
+
+  it('accepts decimal values', done => {
+    const vm = new Vue({
+      el,
+      data: function() {
+        return {
+          total: 200.22,
+          subtotal: "110.98",
+          large: "10.000,1"
+        };
+      },
+      template: `<div>
+        <vue-numeric v-model="large" separator="." precision="2"></vue-numeric>
+        <vue-numeric v-model="total" separator="." precision="2"></vue-numeric>
+        <vue-numeric v-model="subtotal" precision="2"></vue-numeric>
+      </div>`,
+      components: { VueNumeric }
+    }).$mount()
+
+    Vue.nextTick(() => {
+      expect(vm.$el.children[0].value.trim()).toEqual('10.000,10')
+      expect(vm.$el.children[1].value.trim()).toEqual('200,22')
+      expect(vm.$el.children[2].value.trim()).toEqual('110.98')
+      done()
+    });
+
+  });
+
+
+  it('updates values with correct separator', done => {
+    const vm = new Vue({
+      el,
+      data: function() {
+        return {
+          total: 0
+        }
+      },
+      template: `<div>
+        <vue-numeric v-model="total" separator="."></vue-numeric>
+        <span>{{total}}</span>
+      </div>`,
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.total = 3000;
+
+    Vue.nextTick(() => {
+      const span = vm.$el.getElementsByTagName('span')[0];
+      expect(span.textContent.trim()).toEqual('3000');
+      expect(vm.$el.firstChild.value.trim()).toEqual('3.000')
+      done()
+    });
+
+  });
+
 
   it('updates value without format', done => {
     const vm = new Vue({
