@@ -86,6 +86,15 @@ export default {
     value: {
       required: true,
       type: [Number, String]
+    },
+
+    /**
+     * Empty value allowed.
+     */
+    empty: {
+      default: false,
+      required: false,
+      type: Boolean
     }
   },
 
@@ -175,6 +184,17 @@ export default {
     },
 
     /**
+     * Check provided value againts allowed.
+     * @param {Number} value
+     * @return {Boolean}
+     */
+    checkEmptyValue (value) {
+      if (this.empty && (value == "" || value == null))
+        return false
+      return true
+    },
+
+    /**
      * Format provided value to number type.
      * @param {String} value
      * @return {Number}
@@ -201,14 +221,16 @@ export default {
      * @param {Number} value
      */
     processValue (value) {
-      if (isNaN(value)) {
-        this.updateValue(this.minValue)
-      } else if (this.checkMaxValue(value)) {
-        this.updateValue(this.maxValue)
-      } else if (this.checkMinValue(value)) {
-        this.updateValue(this.minValue)
-      } else {
-        this.updateValue(value)
+      if (this.checkEmptyValue(value)) {
+        if (isNaN(value)) {
+          this.updateValue(this.minValue)
+        } else if (this.checkMaxValue(value)) {
+          this.updateValue(this.maxValue)
+        } else if (this.checkMinValue(value)) {
+          this.updateValue(this.minValue)
+        } else {
+          this.updateValue(value)
+        }
       }
     },
 
@@ -216,12 +238,13 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      this.amount = accounting.formatMoney(this.numberValue, {
-        symbol: this.currency + ' ',
-        precision: Number(this.precision),
-        decimal: this.decimalSeparator,
-        thousand: this.thousandSeparator
-      })
+      if (!this.empty)
+        this.amount = accounting.formatMoney(this.numberValue, {
+          symbol: this.currency + ' ',
+          precision: Number(this.precision),
+          decimal: this.decimalSeparator,
+          thousand: this.thousandSeparator
+        })      
     },
 
     /**
