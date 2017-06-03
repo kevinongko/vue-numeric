@@ -84,8 +84,9 @@ export default {
      * v-model value.
      */
     value: {
-      required: true,
-      type: [Number, String]
+      required: false,
+      type: [Number, String],
+      default: ""
     },
 
     /**
@@ -221,16 +222,14 @@ export default {
      * @param {Number} value
      */
     processValue (value) {
-      if (this.checkEmptyValue(value)) {
-        if (isNaN(value)) {
-          this.updateValue(this.minValue)
-        } else if (this.checkMaxValue(value)) {
-          this.updateValue(this.maxValue)
-        } else if (this.checkMinValue(value)) {
-          this.updateValue(this.minValue)
-        } else {
-          this.updateValue(value)
-        }
+      if (isNaN(value)) {
+        this.updateValue(this.minValue)
+      } else if (this.checkMaxValue(value)) {
+        this.updateValue(this.maxValue)
+      } else if (this.checkMinValue(value)) {
+        this.updateValue(this.minValue)
+      } else {
+        this.updateValue(value)
       }
     },
 
@@ -238,13 +237,13 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      if (!this.empty)
+      if (this.checkEmptyValue(this.amount))
         this.amount = accounting.formatMoney(this.numberValue, {
           symbol: this.currency + ' ',
           precision: Number(this.precision),
           decimal: this.decimalSeparator,
           thousand: this.thousandSeparator
-        })      
+        })
     },
 
     /**
@@ -252,7 +251,7 @@ export default {
      * @param {Number} value
      */
     updateValue (value) {
-      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
+      this.$emit('input', value ? Number(accounting.toFixed(value, this.precision)) : null)
     },
 
     /**
@@ -273,7 +272,8 @@ export default {
      * @param {Number} value
      */
     convertToNumber (value) {
-      this.amount = this.numberToString(value)
+      if (this.checkEmptyValue(this.amount))
+        this.amount = this.numberToString(value)
     }
   },
 
@@ -302,8 +302,10 @@ export default {
 
     // In case of delayed v-model new value.
     setTimeout(() => {
-      this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+      if (this.checkEmptyValue(this.value)) {
+        this.processValue(this.formatToNumber(this.value))
+        this.formatValue(this.value)
+      }
     }, 500)
   }
 }
