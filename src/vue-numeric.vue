@@ -237,13 +237,15 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      if (this.checkEmptyValue(this.amount))
+      if (this.checkEmptyValue(this.value))
         this.amount = accounting.formatMoney(this.numberValue, {
           symbol: this.currency + ' ',
           precision: Number(this.precision),
           decimal: this.decimalSeparator,
           thousand: this.thousandSeparator
         })
+      else
+        this.amount=this.value;
     },
 
     /**
@@ -272,7 +274,7 @@ export default {
      * @param {Number} value
      */
     convertToNumber (value) {
-      if (this.checkEmptyValue(this.amount))
+      if (this.checkEmptyValue(value))
         this.amount = this.numberToString(value)
     }
   },
