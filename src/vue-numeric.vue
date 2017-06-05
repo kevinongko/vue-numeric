@@ -246,6 +246,7 @@ export default {
         })
       else
         this.amount=this.value;
+
     },
 
     /**
@@ -253,7 +254,7 @@ export default {
      * @param {Number} value
      */
     updateValue (value) {
-      this.$emit('input', value ? Number(accounting.toFixed(value, this.precision)) : null)
+      this.$emit('input', this.checkEmptyValue(this.amount) ? Number(accounting.toFixed(value, this.precision)) : null)
     },
 
     /**
