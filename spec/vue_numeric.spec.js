@@ -143,4 +143,25 @@ describe('vue-numeric', () => {
       done()
     })
   })
+
+  it('don\'t format empty values', done => {
+    const vm = new Vue({
+      el,
+      data () {
+        return {
+          total: ""
+        }
+      },
+      template: '<div><vue-numeric :empty="true" v-model="total"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    Vue.nextTick(() => {
+      setTimeout(() => {
+        expect(vm.$el.firstChild.value).toEqual("")
+        done()
+      }, 600)
+    })
+  })
+
 })

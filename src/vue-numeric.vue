@@ -84,8 +84,18 @@ export default {
      * v-model value.
      */
     value: {
-      required: true,
-      type: [Number, String]
+      required: false,
+      type: [Number, String],
+      default: ""
+    },
+
+    /**
+     * Empty value allowed.
+     */
+    empty: {
+      default: false,
+      required: false,
+      type: Boolean
     }
   },
 
@@ -175,6 +185,17 @@ export default {
     },
 
     /**
+     * Check provided value againts allowed.
+     * @param {Number} value
+     * @return {Boolean}
+     */
+    checkEmptyValue (value) {
+      if (this.empty && (value == "" || value == null))
+        return (parseInt(value)==0)
+      return true
+    },
+
+    /**
      * Format provided value to number type.
      * @param {String} value
      * @return {Number}
@@ -216,12 +237,16 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      this.amount = accounting.formatMoney(this.numberValue, {
-        symbol: this.currency + ' ',
-        precision: Number(this.precision),
-        decimal: this.decimalSeparator,
-        thousand: this.thousandSeparator
-      })
+      if (this.checkEmptyValue(this.amount))
+        this.amount = accounting.formatMoney(this.numberValue, {
+          symbol: this.currency + ' ',
+          precision: Number(this.precision),
+          decimal: this.decimalSeparator,
+          thousand: this.thousandSeparator
+        })
+      else
+        this.amount=this.value;
+
     },
 
     /**
@@ -229,7 +254,7 @@ export default {
      * @param {Number} value
      */
     updateValue (value) {
-      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
+      this.$emit('input', this.checkEmptyValue(this.amount) ? Number(accounting.toFixed(value, this.precision)) : null)
     },
 
     /**
@@ -250,7 +275,9 @@ export default {
      * @param {Number} value
      */
     convertToNumber (value) {
-      this.amount = this.numberToString(value)
+      if (this.checkEmptyValue(this.value)) {
+        this.amount = this.numberToString(value)
+      }
     }
   },
 
@@ -279,8 +306,10 @@ export default {
 
     // In case of delayed v-model new value.
     setTimeout(() => {
-      this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+      if (this.checkEmptyValue(this.value)) {
+        this.processValue(this.formatToNumber(this.value))
+        this.formatValue(this.value)
+      }
     }, 500)
   }
 }
