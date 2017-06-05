@@ -191,7 +191,7 @@ export default {
      */
     checkEmptyValue (value) {
       if (this.empty && (value == "" || value == null))
-        return false
+        return (parseInt(value)==0)
       return true
     },
 
@@ -237,7 +237,7 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      if (this.checkEmptyValue(this.value))
+      if (this.checkEmptyValue(this.amount))
         this.amount = accounting.formatMoney(this.numberValue, {
           symbol: this.currency + ' ',
           precision: Number(this.precision),
@@ -274,8 +274,9 @@ export default {
      * @param {Number} value
      */
     convertToNumber (value) {
-      if (this.checkEmptyValue(value))
+      if (this.checkEmptyValue(this.value)) {
         this.amount = this.numberToString(value)
+      }
     }
   },
 
