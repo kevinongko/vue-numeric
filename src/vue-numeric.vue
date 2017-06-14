@@ -312,6 +312,11 @@ export default {
       this.formatValue(this.value)
     }
 
+    // Set read-only span element's class
+    if (this.readOnly) {
+      this.$refs.readOnly.className = this.readOnlyClass
+    }
+
     // In case of delayed v-model new value.
     setTimeout(() => {
       this.processValue(this.formatToNumber(this.value))
