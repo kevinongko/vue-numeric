@@ -106,6 +106,8 @@ By default the decimal value is disabled, to use decimal value add `precision` p
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number, String|-|
 |separator|Thousand separator type ( accept either `.` or `,` )|false|String|,|
+|read-only|Hide input field and show the value in text|false|Boolean|false|
+|read-only-class|Class for read-only element|false|String|''|
 
 ## License
 
