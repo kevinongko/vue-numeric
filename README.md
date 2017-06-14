@@ -3,6 +3,7 @@
 [![npm](https://img.shields.io/npm/v/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/dt/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/dm/vue-numeric.svg)](https://www.npmjs.com/package/vue-numeric)
+[![Build Status](https://travis-ci.org/kevinongko/vue-numeric.svg?branch=master)](https://travis-ci.org/kevinongko/vue-numeric)
 [![npm](https://img.shields.io/npm/l/vue-numeric.svg)](http://opensource.org/licenses/MIT)
 
 Input field component to display currency value based on [Vue](https://vuejs.org/).
