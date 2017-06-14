@@ -8,7 +8,9 @@
     ref="numeric"
     type="tel"
     v-model="amount"
+    v-if="!readOnly"
   >
+  <span v-else ref="readOnly"> {{ amount }} </span>
 </template>
 
 <script>
@@ -86,6 +88,24 @@ export default {
     value: {
       required: true,
       type: [Number, String]
+    },
+
+    /**
+     * Hide input and show value in text only.
+     */
+    readOnly: {
+      default: false,
+      required: false,
+      type: Boolean
+    },
+
+    /**
+     * Class for the span tag when readOnly props is true.
+     */
+    readOnlyClass: {
+      default: '',
+      required: false,
+      type: String
     }
   },
 
@@ -257,6 +277,7 @@ export default {
   watch: {
     /**
      * Watch for value change from other input.
+     *
      * @param {Number} val
      * @param {Number} oldVal
      */
@@ -266,6 +287,20 @@ export default {
         if (this.$refs.numeric !== document.activeElement) {
           this.formatValue(val)
         }
+      }
+    },
+
+    /**
+     * When readOnly is true, replace the span tag class.
+     *
+     * @param {Number} val
+     * @param {Number} oldVal
+     */
+    readOnly (val, oldVal) {
+      if (oldVal === false && val === true) {
+        this.$nextTick(() => {
+          this.$refs.readOnly.className = this.readOnlyClass
+        })
       }
     }
   },
