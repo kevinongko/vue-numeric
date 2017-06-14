@@ -293,8 +293,8 @@ export default {
     /**
      * When readOnly is true, replace the span tag class.
      *
-     * @param {Number} val
-     * @param {Number} oldVal
+     * @param {Boolean} val
+     * @param {Boolean} oldVal
      */
     readOnly (val, oldVal) {
       if (oldVal === false && val === true) {
