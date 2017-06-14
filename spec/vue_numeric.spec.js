@@ -143,4 +143,50 @@ describe('vue-numeric', () => {
       done()
     })
   })
+
+  it('show span tag in read-only mode', done => {
+    const vm = new Vue({
+      el,
+      data () {
+        return {
+          total: 100
+        }
+      },
+      template: '<div><vue-numeric v-model="total" :read-only="true" read-only-class="test-class"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.tagName).toEqual('SPAN')
+      const span = vm.$el.getElementsByTagName('span')[0]
+      expect(span.textContent.trim()).toEqual('100')
+      expect(span.className).toEqual('test-class')
+      done()
+    })
+  })
+
+  it('show correct span tag when toggle read-only mode', done => {
+    const vm = new Vue({
+      el,
+      data () {
+        return {
+          total: 100,
+          readOnly: false
+        }
+      },
+      template: '<div><vue-numeric v-model="total" :read-only="readOnly" read-only-class="test-class"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.readOnly = true
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.tagName).toEqual('SPAN')
+      const span = vm.$el.getElementsByTagName('span')[0]
+      expect(span.textContent.trim()).toEqual('100')
+
+      Vue.nextTick(() => { expect(span.className).toEqual('test-class') })
+      done()
+    })
+  })
 })
