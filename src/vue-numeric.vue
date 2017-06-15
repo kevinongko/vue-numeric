@@ -2,9 +2,9 @@
   <input
     :placeholder="placeholder"
     :value="value"
-    @blur="formatValue"
+    @blur="formatValue('number')"
     @input="processValue(amountValue)"
-    @focus="convertToNumber(numberValue)"
+    @focus="focus"
     ref="numeric"
     type="tel"
     v-model="amount"
@@ -106,6 +106,15 @@ export default {
       default: '',
       required: false,
       type: String
+    },
+
+    /**
+     * Enable/Disable formatting on input.
+     */
+    formatInput: {
+        default: false,
+        required: false,
+        type: Boolean
     }
   },
 
@@ -230,13 +239,24 @@ export default {
       } else {
         this.updateValue(value)
       }
+
+      if (this.formatInput) {
+        this.formatValue('amount')
+      }
     },
 
     /**
      * Format value using symbol and separator.
+     * @param {String} type
      */
-    formatValue () {
-      this.amount = accounting.formatMoney(this.numberValue, {
+    formatValue (type) {
+      let value = this.numberValue
+
+      if (this.formatInput && type === 'amount') {
+          value = this.amountValue
+      }
+
+      this.amount = accounting.formatMoney(value, {
         symbol: this.currency + ' ',
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
@@ -271,6 +291,15 @@ export default {
      */
     convertToNumber (value) {
       this.amount = this.numberToString(value)
+    },
+
+    /**
+     * Check the format-input props is enable or not
+     */
+    focus () {
+        if (!this.formatInput) {
+          this.convertToNumber(this.numberValue)
+        }
     }
   },
 
@@ -285,7 +314,7 @@ export default {
       if (this.amountValue !== val && this.amountValue === oldVal) {
         this.convertToNumber(val)
         if (this.$refs.numeric !== document.activeElement) {
-          this.formatValue(val)
+          this.formatValue('number')
         }
       }
     },
@@ -309,7 +338,7 @@ export default {
     // Check default value from parent v-model.
     if (this.value) {
       this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+      this.formatValue('number')
     }
 
     // Set read-only span element's class
@@ -320,7 +349,7 @@ export default {
     // In case of delayed v-model new value.
     setTimeout(() => {
       this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+      this.formatValue('number')
     }, 500)
   }
 }
