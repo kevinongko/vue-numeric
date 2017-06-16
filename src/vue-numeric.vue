@@ -3,7 +3,7 @@
     :placeholder="placeholder"
     :value="value"
     @blur="formatValue('number')"
-    @input="processValue(amountValue)"
+    @input="processValue"
     @focus="focus"
     ref="numeric"
     type="tel"
@@ -227,9 +227,14 @@ export default {
 
     /**
      * Validate value before apply to the component.
-     * @param {Number} value
      */
-    processValue (value) {
+    processValue () {
+      if (this.formatInput) {
+        this.formatValue('amount')
+      }
+
+      let value = this.amountValue
+
       if (isNaN(value)) {
         this.updateValue(this.minValue)
       } else if (this.checkMaxValue(value)) {
@@ -238,10 +243,6 @@ export default {
         this.updateValue(this.minValue)
       } else {
         this.updateValue(value)
-      }
-
-      if (this.formatInput) {
-        this.formatValue('amount')
       }
     },
 
@@ -253,7 +254,7 @@ export default {
       let value = this.numberValue
 
       if (this.formatInput && type === 'amount') {
-          value = this.amountValue
+        value = this.adjustAmountValue()
       }
 
       this.amount = accounting.formatMoney(value, {
@@ -300,6 +301,15 @@ export default {
         if (!this.formatInput) {
           this.convertToNumber(this.numberValue)
         }
+    },
+
+    /**
+     * Adjust amount value
+     */
+    adjustAmountValue () {
+      let value = this.amount.replace(/[\.,]/g, '')
+      let separatorPosition = value.length - this.precision
+      return value.slice(0, separatorPosition) + '.' + value.slice(separatorPosition, value.length)
     }
   },
 
