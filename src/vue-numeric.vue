@@ -307,7 +307,7 @@ export default {
      * Adjust amount value
      */
     adjustAmountValue () {
-      let value = this.amount.replace(/[\.,]/g, '')
+      let value = this.amount.replace(this.currency, '').replace(/[\.,]/g, '')
       let separatorPosition = value.length - this.precision
       return value.slice(0, separatorPosition) + '.' + value.slice(separatorPosition, value.length)
     }
