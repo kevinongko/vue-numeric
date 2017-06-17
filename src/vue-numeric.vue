@@ -86,8 +86,9 @@ export default {
      * v-model value.
      */
     value: {
-      required: true,
-      type: [Number, String]
+      required: false,
+      type: [Number, String],
+      default: null
     },
 
     /**
@@ -106,6 +107,15 @@ export default {
       default: '',
       required: false,
       type: String
+    },
+
+    /**
+     * Empty value allowed.
+     */
+    empty: {
+      default: false,
+      required: false,
+      type: Boolean
     }
   },
 
@@ -119,7 +129,7 @@ export default {
      * @return {Number}
      */
     amountValue () {
-      return this.formatToNumber(this.amount)
+      return (this.canFormat(this.amount)) ? this.formatToNumber(this.amount) : null
     },
 
     /**
@@ -127,7 +137,7 @@ export default {
      * @return {Number}
      */
     numberValue () {
-      return this.formatToNumber(this.value)
+      return (this.canFormat(this.amount)) ? this.formatToNumber(this.value) : null
     },
 
     /**
@@ -195,6 +205,17 @@ export default {
     },
 
     /**
+     * Checks whether the value can be formatted
+     * @param {Number} value
+     * @return {Boolean}
+     */
+    canFormat (value) {
+      if (this.empty && (value === "" || value === null))
+        return false
+      return true      
+    },
+
+    /**
      * Format provided value to number type.
      * @param {String} value
      * @return {Number}
@@ -221,12 +242,16 @@ export default {
      * @param {Number} value
      */
     processValue (value) {
-      if (isNaN(value)) {
-        this.updateValue(this.minValue)
-      } else if (this.checkMaxValue(value)) {
-        this.updateValue(this.maxValue)
-      } else if (this.checkMinValue(value)) {
-        this.updateValue(this.minValue)
+      if (this.canFormat(value)) {
+        if (isNaN(value)) {
+          this.updateValue(this.minValue)
+        } else if (this.checkMaxValue(value)) {
+          this.updateValue(this.maxValue)
+        } else if (this.checkMinValue(value)) {
+          this.updateValue(this.minValue)
+        } else {
+          this.updateValue(value)
+        }
       } else {
         this.updateValue(value)
       }
@@ -236,12 +261,13 @@ export default {
      * Format value using symbol and separator.
      */
     formatValue () {
-      this.amount = accounting.formatMoney(this.numberValue, {
-        symbol: this.currency + ' ',
-        precision: Number(this.precision),
-        decimal: this.decimalSeparator,
-        thousand: this.thousandSeparator
-      })
+      if (this.canFormat(this.amount))
+        this.amount = accounting.formatMoney(this.numberValue, {
+          symbol: this.currency + ' ',
+          precision: Number(this.precision),
+          decimal: this.decimalSeparator,
+          thousand: this.thousandSeparator
+        })
     },
 
     /**
@@ -249,7 +275,7 @@ export default {
      * @param {Number} value
      */
     updateValue (value) {
-      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
+      this.$emit('input', this.canFormat(value) ? Number(accounting.toFixed(value, this.precision)) : value)
     },
 
     /**
@@ -270,7 +296,10 @@ export default {
      * @param {Number} value
      */
     convertToNumber (value) {
-      this.amount = this.numberToString(value)
+      if (this.canFormat(value))
+        this.amount = this.numberToString(value)
+      else
+        this.amount = value
     }
   },
 
@@ -306,21 +335,23 @@ export default {
   },
 
   mounted () {
-    // Check default value from parent v-model.
-    if (this.value) {
-      this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
-    }
-
     // Set read-only span element's class
     if (this.readOnly) {
       this.$refs.readOnly.className = this.readOnlyClass
     }
 
-    // In case of delayed v-model new value.
-    setTimeout(() => {
+    // Check default value from parent v-model.
+    if (this.canFormat(this.value) && this.value) {
       this.processValue(this.formatToNumber(this.value))
       this.formatValue(this.value)
+    }
+
+    // In case of delayed v-model new value.
+    setTimeout(() => {
+      if (this.canFormat(this.value)) {
+        this.processValue(this.formatToNumber(this.value))
+        this.formatValue(this.value)
+      }
     }, 500)
   }
 }
