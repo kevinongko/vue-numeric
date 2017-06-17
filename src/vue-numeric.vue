@@ -2,8 +2,8 @@
   <input
     :placeholder="placeholder"
     :value="value"
-    @blur="formatValue('number')"
-    @input="processValue"
+    @blur="formatValue(amountValue)"
+    @input="processValue(amountValue)"
     @focus="focus"
     ref="numeric"
     type="tel"
@@ -112,9 +112,9 @@ export default {
      * Enable/Disable formatting on input.
      */
     formatInput: {
-        default: false,
-        required: false,
-        type: Boolean
+      default: false,
+      required: false,
+      type: Boolean
     }
   },
 
@@ -128,6 +128,12 @@ export default {
      * @return {Number}
      */
     amountValue () {
+      if (this.formatInput && this.precision > 0) {
+        let value = this.amount.replace(/[^0-9]/g, '')
+        let decimalSeparatorPosition = value.length - this.precision
+        return Number(value.slice(0, decimalSeparatorPosition) + '.' + value.slice(decimalSeparatorPosition, value.length))
+      }
+
       return this.formatToNumber(this.amount)
     },
 
@@ -227,14 +233,9 @@ export default {
 
     /**
      * Validate value before apply to the component.
+     * @param {Number} value
      */
-    processValue () {
-      if (this.formatInput) {
-        this.formatValue('amount')
-      }
-
-      let value = this.amountValue
-
+    processValue (value) {
       if (isNaN(value)) {
         this.updateValue(this.minValue)
       } else if (this.checkMaxValue(value)) {
@@ -244,19 +245,17 @@ export default {
       } else {
         this.updateValue(value)
       }
+
+      if (this.formatInput) {
+        this.formatValue(this.amountValue)
+      }
     },
 
     /**
      * Format value using symbol and separator.
-     * @param {String} type
+     * @param {Number} value
      */
-    formatValue (type) {
-      let value = this.numberValue
-
-      if (this.formatInput && type === 'amount') {
-        value = this.adjustAmountValue()
-      }
-
+    formatValue (value) {
       this.amount = accounting.formatMoney(value, {
         symbol: this.currency + ' ',
         precision: Number(this.precision),
@@ -298,18 +297,9 @@ export default {
      * Check the format-input props is enable or not
      */
     focus () {
-        if (!this.formatInput) {
-          this.convertToNumber(this.numberValue)
-        }
-    },
-
-    /**
-     * Adjust amount value
-     */
-    adjustAmountValue () {
-      let value = this.amount.replace(this.currency, '').replace(/[\.,]/g, '')
-      let separatorPosition = value.length - this.precision
-      return value.slice(0, separatorPosition) + '.' + value.slice(separatorPosition, value.length)
+      if (!this.formatInput) {
+        this.convertToNumber(this.numberValue)
+      }
     }
   },
 
@@ -324,7 +314,7 @@ export default {
       if (this.amountValue !== val && this.amountValue === oldVal) {
         this.convertToNumber(val)
         if (this.$refs.numeric !== document.activeElement) {
-          this.formatValue('number')
+          this.formatValue(val)
         }
       }
     },
@@ -348,7 +338,7 @@ export default {
     // Check default value from parent v-model.
     if (this.value) {
       this.processValue(this.formatToNumber(this.value))
-      this.formatValue('number')
+      this.formatValue(this.formatToNumber(this.value))
     }
 
     // Set read-only span element's class
@@ -359,7 +349,7 @@ export default {
     // In case of delayed v-model new value.
     setTimeout(() => {
       this.processValue(this.formatToNumber(this.value))
-      this.formatValue('number')
+      this.formatValue(this.formatToNumber(this.value))
     }, 500)
   }
 }
