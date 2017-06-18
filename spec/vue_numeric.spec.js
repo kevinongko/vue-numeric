@@ -189,4 +189,64 @@ describe('vue-numeric', () => {
       done()
     })
   })
+
+  it('Updates value using format-input prop', done => {
+    const vm = new Vue({
+      el,
+      data () {
+        return {
+          total: 0
+        }
+      },
+      template: '<div><vue-numeric v-model="total" :format-input="true"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.total = 3000
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.value.trim()).toEqual('3,000')
+      done()
+    })
+  })
+
+  it('Updates value using format-input prop with decimal', done => {
+    const vm = new Vue({
+      el,
+      data () {
+        return {
+          total: 0
+        }
+      },
+      template: '<div><vue-numeric v-model="total" precision="2" :format-input="true"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.total = 3000.50
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.value.trim()).toEqual('3,000.50')
+      done()
+    })
+  })
+
+  it('Updates value using format-input prop with decimal separator \',\' and currency', done => {
+    const vm = new Vue({
+      el,
+      data () {
+        return {
+          total: 0
+        }
+      },
+      template: '<div><vue-numeric v-model="total" precision="2" separator="." currency="$" :format-input="true"></vue-numeric></div>',
+      components: { VueNumeric }
+    }).$mount()
+
+    vm.total = 3000.50
+
+    Vue.nextTick(() => {
+      expect(vm.$el.firstChild.value.trim()).toEqual('$ 3.000,50')
+      done()
+    })
+  })
 })

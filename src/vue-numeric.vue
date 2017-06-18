@@ -130,6 +130,11 @@ export default {
     amountValue () {
       if (this.formatInput && this.precision > 0) {
         let value = this.amount.replace(/[^0-9]/g, '')
+
+        if (value === '') {
+          return this.minValue
+        }
+
         let decimalSeparatorPosition = value.length - this.precision
         return Number(value.slice(0, decimalSeparatorPosition) + '.' + value.slice(decimalSeparatorPosition, value.length))
       }
