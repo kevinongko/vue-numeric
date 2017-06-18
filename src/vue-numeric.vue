@@ -2,9 +2,9 @@
   <input
     :placeholder="placeholder"
     :value="value"
-    @blur="formatValue"
+    @blur="formatValue(amountValue)"
     @input="processValue(amountValue)"
-    @focus="convertToNumber(numberValue)"
+    @focus="focus"
     ref="numeric"
     type="tel"
     v-model="amount"
@@ -106,6 +106,15 @@ export default {
       default: '',
       required: false,
       type: String
+    },
+
+    /**
+     * Enable/Disable formatting on input.
+     */
+    formatInput: {
+      default: false,
+      required: false,
+      type: Boolean
     }
   },
 
@@ -119,6 +128,17 @@ export default {
      * @return {Number}
      */
     amountValue () {
+      if (this.formatInput && this.precision > 0) {
+        let value = this.amount.replace(/[^0-9]/g, '')
+
+        if (value === '') {
+          return this.minValue
+        }
+
+        let decimalSeparatorPosition = value.length - this.precision
+        return Number(value.slice(0, decimalSeparatorPosition) + '.' + value.slice(decimalSeparatorPosition, value.length))
+      }
+
       return this.formatToNumber(this.amount)
     },
 
@@ -230,13 +250,18 @@ export default {
       } else {
         this.updateValue(value)
       }
+
+      if (this.formatInput) {
+        this.formatValue(this.amountValue)
+      }
     },
 
     /**
      * Format value using symbol and separator.
+     * @param {Number} value
      */
-    formatValue () {
-      this.amount = accounting.formatMoney(this.numberValue, {
+    formatValue (value) {
+      this.amount = accounting.formatMoney(value, {
         symbol: this.currency + ' ',
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
@@ -271,6 +296,15 @@ export default {
      */
     convertToNumber (value) {
       this.amount = this.numberToString(value)
+    },
+
+    /**
+     * Check the format-input props is enable or not
+     */
+    focus () {
+      if (!this.formatInput) {
+        this.convertToNumber(this.numberValue)
+      }
     }
   },
 
@@ -309,7 +343,7 @@ export default {
     // Check default value from parent v-model.
     if (this.value) {
       this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+      this.formatValue(this.formatToNumber(this.value))
     }
 
     // Set read-only span element's class
@@ -320,7 +354,7 @@ export default {
     // In case of delayed v-model new value.
     setTimeout(() => {
       this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+      this.formatValue(this.formatToNumber(this.value))
     }, 500)
   }
 }
