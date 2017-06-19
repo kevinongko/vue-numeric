@@ -190,75 +190,25 @@ describe('vue-numeric', () => {
     })
   })
 
-  it('allow minus value when minus props is true', done => {
+  it('updates value with currency symbol', done => {
     const vm = new Vue({
       el,
       data () {
         return {
-          total: -100
+          total: 0
         }
       },
-      template: '<div><vue-numeric v-model="total" :minus="true"></vue-numeric></div>',
+      template: '<div><vue-numeric v-model="total" currency="CZK" currencySymbolPosition="sufix" precision=2 separator="."></vue-numeric></div>',
       components: { VueNumeric }
     }).$mount()
 
+    //vm.$el.firstChild.focus()
+    vm.total = 3000
+
     Vue.nextTick(() => {
-      expect(vm.$el.firstChild.value.trim()).toEqual('-100')
+      expect(vm.$el.firstChild.value.trim()).toEqual('3.000,00 CZK')
       done()
     })
   })
 
-  it('disallow minus value when minus props is false', done => {
-    const vm = new Vue({
-      el,
-      data () {
-        return {
-          total: -100
-        }
-      },
-      template: '<div><vue-numeric v-model="total" :minus="false"></vue-numeric></div>',
-      components: { VueNumeric }
-    }).$mount()
-
-    Vue.nextTick(() => {
-      expect(vm.$el.firstChild.value.trim()).toEqual('100')
-      done()
-    })
-  })
-
-  it('value cannot exceed max props', done => {
-    const vm = new Vue({
-      el,
-      data () {
-        return {
-          total: 150
-        }
-      },
-      template: '<div><vue-numeric v-model="total" :max="100"></vue-numeric></div>',
-      components: { VueNumeric }
-    }).$mount()
-
-    Vue.nextTick(() => {
-      expect(vm.$el.firstChild.value.trim()).toEqual('100')
-      done()
-    })
-  })
-
-  it('value cannot below min props', done => {
-    const vm = new Vue({
-      el,
-      data () {
-        return {
-          total: 150
-        }
-      },
-      template: '<div><vue-numeric v-model="total" :min="200"></vue-numeric></div>',
-      components: { VueNumeric }
-    }).$mount()
-
-    Vue.nextTick(() => {
-      expect(vm.$el.firstChild.value.trim()).toEqual('200')
-      done()
-    })
-  })
 })
