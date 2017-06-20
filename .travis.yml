@@ -6,4 +6,6 @@ node_js:
 before_script:
   - yarn install
 
-script: yarn run test
+script:
+  - yarn run lint
+  - yarn run test
