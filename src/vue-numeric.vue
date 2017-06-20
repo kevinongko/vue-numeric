@@ -109,8 +109,8 @@ export default {
     },
 
     /**
-     * Position of currency symbol 
-     * Symbol position props accept either 'sufix' or 'prefix' (default).
+     * Position of currency symbol
+     * Symbol position props accept either 'suffix' or 'prefix' (default).
      */
     currencySymbolPosition: {
       default: 'prefix',
