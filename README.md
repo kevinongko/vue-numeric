@@ -101,6 +101,7 @@ By default the decimal value is disabled, to use decimal value add `precision` p
 |Props|Description|Required|Type|Default|
 |-----|-----------|--------|----|-------|
 |currency|Currency prefix|false|String|-|
+|currency-symbol-position|Position for the symbol|false|String|'prefix'|
 |max|Maximum value allowed|false|Number, String|-|
 |min|Minimum value allowed|false|Number, String|0|
 |minus|Enable/disable minus value|false|Boolean|false|
