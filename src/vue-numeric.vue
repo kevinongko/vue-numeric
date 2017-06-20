@@ -113,7 +113,7 @@ export default {
      * Symbol position props accept either 'sufix' or 'prefix' (default).
      */
     currencySymbolPosition: {
-      default: "prefix",
+      default: 'prefix',
       required: false,
       type: String
     }
@@ -181,7 +181,7 @@ export default {
      * @return {String} format
      */
     formatString () {
-      return this.currencySymbolPosition === 'sufix' ? '%v %s' : '%s %v';
+      return this.currencySymbolPosition === 'suffix' ? '%v %s' : '%s %v'
     }
   },
 
