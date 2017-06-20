@@ -262,7 +262,7 @@ describe('vue-numeric', () => {
     })
   })
 
-  it('updates value with currency symbol', done => {
+  it('updates value with suffix currency symbol', done => {
     const vm = new Vue({
       el,
       data () {
@@ -270,11 +270,10 @@ describe('vue-numeric', () => {
           total: 0
         }
       },
-      template: '<div><vue-numeric v-model="total" currency="CZK" currencySymbolPosition="sufix" precision=2 separator="."></vue-numeric></div>',
+      template: '<div><vue-numeric v-model="total" currency="CZK" currencySymbolPosition="suffix" precision=2 separator="."></vue-numeric></div>',
       components: { VueNumeric }
     }).$mount()
 
-    //vm.$el.firstChild.focus()
     vm.total = 3000
 
     Vue.nextTick(() => {
