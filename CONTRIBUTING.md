@@ -5,7 +5,7 @@ When contributing to this repository, please first discuss the change you wish t
 If you intend to change the public API, or make any non-trivial changes to the implementation, we recommend filing an issue. This lets us reach an agreement on your proposal before you put significant effort into it.
 
 ## Javascript style guides
-JavaScript must adhere to [Vue.Js official recommended style](https://github.com/vuejs/eslint-plugin-vue).
+Javascript must adhere to [Vue.js official recommended style](https://github.com/vuejs/eslint-plugin-vue).
 
 ## DocBlock
 Every function, methods, computed properties, props should have a docblock to explain what it does
