@@ -106,6 +106,16 @@ export default {
       default: '',
       required: false,
       type: String
+    },
+
+    /**
+     * Position of currency symbol 
+     * Symbol position props accept either 'sufix' or 'prefix' (default).
+     */
+    currencySymbolPosition: {
+      default: 'prefix',
+      required: false,
+      type: String
     }
   },
 
@@ -164,6 +174,14 @@ export default {
     thousandSeparator () {
       if (this.separator === '.') return '.'
       return ','
+    },
+
+    /**
+     * Define format for currency symbol and value.
+     * @return {String} format
+     */
+    formatString () {
+      return this.currencySymbolPosition === 'suffix' ? '%v %s' : '%s %v'
     }
   },
 
@@ -237,7 +255,8 @@ export default {
      */
     formatValue () {
       this.amount = accounting.formatMoney(this.numberValue, {
-        symbol: this.currency + ' ',
+        symbol: this.currency,
+        format: this.formatString,
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
         thousand: this.thousandSeparator
