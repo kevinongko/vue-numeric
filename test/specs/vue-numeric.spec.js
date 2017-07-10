@@ -5,13 +5,6 @@ import { mount } from 'avoriaz'
 import VueNumeric from '@/vue-numeric'
 
 describe('vue-numeric.vue', () => {
-  let el
-
-  beforeEach(() => {
-    el = document.createElement('div')
-    document.body.appendChild(el)
-  })
-
   it('has name', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 0 } })
     expect(wrapper.name()).to.equal('vue-numeric')
@@ -100,35 +93,42 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.vm.maxValue).to.equal(undefined)
   })
 
-  it('cannot exceed max props', done => {
-    const vm = new Vue({
-      el,
+  it('apply class when toggle read-only mode on', done => {
+    const propsData = { value: 3000, readOnly: false, readOnlyClass: 'testclass' }
+    const wrapper = mount(VueNumeric, { propsData })
+
+    wrapper.setProps({ readOnly: true })
+
+    wrapper.instance().$nextTick(() => {
+      expect(wrapper.instance().$el.className).to.equal('testclass')
+      done()
+    })
+  })
+
+  it('cannot exceed max props', () => {
+    const component = Vue.extend({
       data: () => ({ total: 150 }),
       template: '<div><vue-numeric v-model="total" :max="100"></vue-numeric></div>',
       components: { VueNumeric }
-    }).$mount()
-
-    Vue.nextTick(() => {
-      expect(vm.$el.firstChild.value.trim()).to.equal('100')
-      done()
     })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(100)
   })
 
-  it('cannot below min props', done => {
-    const vm = new Vue({
-      el,
+  it('cannot below min props', () => {
+    const component = Vue.extend({
       data: () => ({ total: 150 }),
       template: '<div><vue-numeric v-model="total" :min="200"></vue-numeric></div>',
       components: { VueNumeric }
-    }).$mount()
-
-    Vue.nextTick(() => {
-      expect(vm.$el.firstChild.value.trim()).to.equal('200')
-      done()
     })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(200)
   })
 
-  it('updates value with format if without focus', done => {
+  it('updates delayed value with format if without focus', done => {
+    const el = document.createElement('div')
     const vm = new Vue({
       el,
       data: () => ({ total: 0 }),
@@ -136,11 +136,13 @@ describe('vue-numeric.vue', () => {
       components: { VueNumeric }
     }).$mount()
 
-    vm.total = 3000
+    setTimeout(() => {
+      vm.total = 3000
+    }, 100);
 
-    Vue.nextTick(() => {
+    setTimeout(() => {
       expect(vm.$el.firstChild.value.trim()).to.equal('3,000')
       done()
-    })
+    }, 500);
   })
 })
