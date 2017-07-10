@@ -1,7 +1,7 @@
 /* global beforeEach, expect, it, describe */
 
 import Vue from 'vue'
-import VueNumeric from './../src/vue-numeric.vue'
+import VueNumeric from '@/vue-numeric.vue'
 Vue.config.productionTip = false
 
 function getInput (Component, propsData) {

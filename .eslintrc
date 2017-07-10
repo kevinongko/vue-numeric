@@ -1,4 +1,0 @@
-{
-  "extends": ["vue"],
-  "plugins": ["html"]
-}
