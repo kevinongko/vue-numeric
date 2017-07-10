@@ -83,6 +83,11 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.vm.checkMinValue(1000)).is.equal(false)
   })
 
+  it('method formatToNumber works correctly', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: '2000', separator: '.' }})
+    expect(wrapper.vm.formatToNumber('2000')).is.equal(2000)
+  })
+
   it('computed minValue return 0 if min props undefined', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 3000 }})
     expect(wrapper.vm.minValue).to.equal(0)
