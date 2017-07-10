@@ -29,7 +29,7 @@
   },
   "scripts": {
     "test": "cross-env karma start test/karma.config.js",
-    "test:watch": "cross-env karma start --single-run=false",
+    "test:watch": "cross-env karma start test/karma.config.js --single-run=false",
     "lint": "cross-env eslint --ext .js,.vue src spec"
   },
   "devDependencies": {
