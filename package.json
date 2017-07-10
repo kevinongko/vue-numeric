@@ -30,7 +30,8 @@
   "scripts": {
     "test": "cross-env karma start test/karma.config.js",
     "test:watch": "cross-env karma start test/karma.config.js --single-run=false",
-    "lint": "cross-env eslint --ext .js,.vue src spec"
+    "lint": "cross-env eslint --ext .js,.vue src spec",
+    "report-coverage": "codecov"
   },
   "devDependencies": {
     "avoriaz": "^2.4.2",
@@ -39,6 +40,7 @@
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-latest": "^6.24.1",
     "chai": "^4.0.2",
+    "codecov": "^2.2.0",
     "cross-env": "^5.0.1",
     "eslint": "^4.2.0",
     "eslint-plugin-vue": "beta",
