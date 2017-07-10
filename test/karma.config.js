@@ -5,7 +5,7 @@ var path = require('path')
 module.exports = config => {
   config.set({
     browsers: ['PhantomJS'],
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
     files: ['specs/*.spec.js'],
     preprocessors: {

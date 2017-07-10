@@ -10,7 +10,7 @@
     v-model="amount"
     v-if="!readOnly"
   >
-  <span v-else ref="readOnly"> {{ amount }} </span>
+  <span v-else ref="readOnly">{{ amount }}</span>
 </template>
 
 <script>
