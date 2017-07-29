@@ -19,6 +19,27 @@ Input field component to display currency value based on [Vue](https://vuejs.org
 $ npm install vue-numeric --save
 ```
 
+### Install as Component
+```js
+import Vue from 'vue'
+  
+export default {
+  name: 'App',
+
+  components: {
+    VueNumeric
+  }
+}
+```
+
+### Install as Plugin
+```js
+import Vue from 'vue'
+import VueNumeric from 'vue-numeric'
+  
+Vue.use(VueNumeric)
+```
+
 ## Usage
 
 ![screen shot 2016-12-08 at 2 19 31 pm](https://cloud.githubusercontent.com/assets/15880638/21001265/f2322438-bd51-11e6-8985-f31a45702484.png)
