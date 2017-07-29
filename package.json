@@ -1,9 +1,9 @@
 {
   "name": "vue-numeric",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "Input field component to display currency value based on Vue.",
   "author": "Kevin Ongko",
-  "main": "src/vue-numeric.vue",
+  "main": "dist/vue-numeric.min.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kevinongko/vue-numeric.git"
@@ -31,6 +31,7 @@
     "test": "cross-env karma start test/karma.config.js",
     "test:watch": "cross-env karma start test/karma.config.js --single-run=false",
     "lint": "cross-env eslint --ext .js,.vue src spec",
+    "build": "cross-env ./node_modules/webpack/bin/webpack.js --hide-modules -p --progress",
     "report-coverage": "codecov"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-latest": "^6.24.1",
     "chai": "^4.0.2",
+    "clean-webpack-plugin": "^0.1.16",
     "codecov": "^2.2.0",
     "cross-env": "^5.0.1",
     "eslint": "^4.2.0",
