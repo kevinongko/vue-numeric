@@ -22,7 +22,7 @@ $ npm install vue-numeric --save
 ### Install as Component
 ```js
 import Vue from 'vue'
-import VueNumeric from 'vue-numeric
+import VueNumeric from 'vue-numeric'
 
 export default {
   name: 'App',
