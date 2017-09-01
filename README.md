@@ -140,7 +140,7 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number, String|-|
-|separator|Thousand separator symbole (accepts either `.` or `,`)|false|String|`,`|
+|separator|Thousand separator symbol (accepts either `.` or `,`)|false|String|`,`|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
 
