@@ -15,11 +15,21 @@ Input field component to display a formatted currency value based on [Vue](https
 
 ## Installation
 
+### Install via CDN
+```html
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-numeric"></script>
+
+<script>
+  Vue.use(VueNumeric.default)
+</script>
+```
+### Install via NPM
 ```sh
 $ npm install vue-numeric --save
 ```
 
-### Install as Component
+#### Register as Component
 ```js
 import Vue from 'vue'
 import VueNumeric from 'vue-numeric'
@@ -33,22 +43,12 @@ export default {
 }
 ```
 
-### Install as Plugin
+#### Register as Plugin
 ```js
 import Vue from 'vue'
 import VueNumeric from 'vue-numeric'
 
 Vue.use(VueNumeric)
-```
-
-### Install via CDN
-```html
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vue-numeric"></script>
-
-<script>
-  Vue.use(VueNumeric.default)
-</script>
 ```
 
 ## Usage
