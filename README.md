@@ -7,11 +7,11 @@
 [![Codecov](https://img.shields.io/codecov/c/github/kevinongko/vue-numeric.svg)](https://codecov.io/gh/kevinongko/vue-numeric)
 [![npm](https://img.shields.io/npm/l/vue-numeric.svg)](http://opensource.org/licenses/MIT)
 
-Input field component to display currency value based on [Vue](https://vuejs.org/).
+Input field component to display a formatted currency value based on [Vue](https://vuejs.org/).
 
 [Live Demo](https://kevinongko.github.io/vue-numeric/)
 
-`Works with Vue 2.*`
+**Works with Vue 2.***
 
 ## Installation
 
@@ -66,7 +66,6 @@ Vue.use(VueNumeric)
 import VueNumeric from 'vue-numeric'
 
 export default {
-
   name: 'App',
 
   components: {
@@ -78,12 +77,11 @@ export default {
   }),
 }
 </script>
-
 ```
 
-### Currency prefix
+### Currency symbol
 
-adding currency prefix to the input by using `currency` props.
+Set the `currency` prop to add a currency symbol within the input.
 
 ```vue
 <vue-numeric currency="$"></vue-numeric>
@@ -91,35 +89,37 @@ adding currency prefix to the input by using `currency` props.
 
 ### Minimum & maximum constraint
 
-Limit minimum and maximum input by using `min, max` props.
+Limit the minimum and maximum value by using `min` and `max` props.
 
-- `min` default to `0`.
-- `min, max` accept `String` and `Number`.
+- `min` defaults to `0`.
+- `min` and `max` accept `String` or `Number` values.
 
 ```vue
 <vue-numeric min="2000" v-bind:max="10000"></vue-numeric>
 ```
 
-### Disable/enable minus value
-- `minus` default to `false`.
+### Disable/enable negative values
+
+`minus` defaults to `false` (no negative numbers).
 
 ```vue
 <vue-numeric v-bind:minus="false"></vue-numeric>
 ```
 
-### Enable decimal value
-By default the decimal value is disabled, to use decimal value add `precision` props.
-- `precision` accept `String` and `Number` numeric value.
+### Enable decimal precision
+
+By default the decimal value is disabled. To use decimals in the value, add the `precision` prop.
+- `precision` accept a `String` or `Number` numeric value.
 
 ```vue
 <vue-numeric v-bind:precision="2"></vue-numeric>
 ```
 
-### Thousand separator
+### Thousands separator
 - Default thousand separator's symbol is `,`.
-- Use `separator` props to change separator's symbol.
-- `separator` only accept either `,` or `.` value.
-- When using `.` separator symbol, to input decimal value use `,` and vice versa.
+- Use the `separator` prop to change the thousands separator.
+- `separator` only accepts `,` or `.`.
+- When using the `.` as a separator, use a `,` for a decimal and vice versa.
 
 ```vue
 <vue-numeric separator="."></vue-numeric>
@@ -134,14 +134,14 @@ By default the decimal value is disabled, to use decimal value add `precision` p
 |Props|Description|Required|Type|Default|
 |-----|-----------|--------|----|-------|
 |currency|Currency prefix|false|String|-|
-|currency-symbol-position|Position for the symbol (accepted values: `prefix` or `suffix`)|false|String|'prefix'|
+|currency-symbol-position|Position of the symbol (accepted values: `prefix` or `suffix`)|false|String|`prefix`|
 |max|Maximum value allowed|false|Number, String|-|
 |min|Minimum value allowed|false|Number, String|0|
-|minus|Enable/disable minus value|false|Boolean|false|
+|minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number, String|-|
-|separator|Thousand separator type ( accept either `.` or `,` )|false|String|,|
-|read-only|Hide input field and show the value in text|false|Boolean|false|
+|separator|Thousand separator symbol (accepts either `.` or `,`)|false|String|`,`|
+|read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
 
 ## License
