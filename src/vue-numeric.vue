@@ -181,6 +181,7 @@ export default {
      * @return {String} format
      */
     formatString () {
+      if (!this.currency) return '%v'
       return this.currencySymbolPosition === 'suffix' ? '%v %s' : '%s %v'
     }
   },

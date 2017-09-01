@@ -12,12 +12,12 @@ describe('vue-numeric.vue', () => {
 
   it('remove other than numeric value', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: '20as00df' } })
-    expect(wrapper.data().amount).to.equal(' 2,000')
+    expect(wrapper.data().amount).to.equal('2,000')
   })
 
   it('Use default decimal separator', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: '2000' } })
-    expect(wrapper.data().amount).to.equal(' 2,000')
+    expect(wrapper.data().amount).to.equal('2,000')
   })
 
   it('format values with currency prefix', () => {
@@ -149,5 +149,10 @@ describe('vue-numeric.vue', () => {
       expect(vm.$el.firstChild.value.trim()).to.equal('3,000')
       done()
     }, 500);
+  })
+
+  it('remove space if currency props undefined', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000 }})
+    expect(wrapper.data().amount).to.equal('2,000')
   })
 })
