@@ -3,6 +3,7 @@ import Vue from 'vue'
 import { expect } from 'chai'
 import { mount } from 'avoriaz'
 import VueNumeric from '@/vue-numeric'
+import sinon from 'sinon'
 
 describe('vue-numeric.vue', () => {
   it('has name', () => {
@@ -10,13 +11,8 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.name()).to.equal('vue-numeric')
   })
 
-  it('remove other than numeric value', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: '20as00df' } })
-    expect(wrapper.data().amount).to.equal('2,000')
-  })
-
   it('Use default decimal separator', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: '2000' } })
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000 }})
     expect(wrapper.data().amount).to.equal('2,000')
   })
 
@@ -63,42 +59,7 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.text()).is.equal('$ 2,000')
   })
 
-  it('allow minus value when minus props is true', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: -2000, currency: '$', minus: true }})
-    expect(wrapper.data().amount).is.equal('$ -2,000')
-  })
-
-  it('disallow minus value when minus props is false', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: -2000, currency: '$', minus: false }})
-    expect(wrapper.data().amount).is.equal('$ 2,000')
-  })
-
-  it('method checkMaxValue return false if value smaller than max props', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 2000, max: 3000 }})
-    expect(wrapper.vm.checkMaxValue(2000)).is.equal(false)
-  })
-
-  it('method checkMinValue return false if value bigger than min props', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 3000, min: 1000 }})
-    expect(wrapper.vm.checkMinValue(1000)).is.equal(false)
-  })
-
-  it('method formatToNumber works correctly', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: '2000', separator: '.' }})
-    expect(wrapper.vm.formatToNumber('2000')).is.equal(2000)
-  })
-
-  it('computed minValue return 0 if min props undefined', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 3000 }})
-    expect(wrapper.vm.minValue).to.equal(0)
-  })
-
-  it('computed maxValue return undefined if max props undefined', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 3000 }})
-    expect(wrapper.vm.maxValue).to.equal(undefined)
-  })
-
-  it('apply class when toggle read-only mode on', done => {
+  it('apply class when read-only mode enabled', done => {
     const propsData = { value: 3000, readOnly: false, readOnlyClass: 'testclass' }
     const wrapper = mount(VueNumeric, { propsData })
 
@@ -132,6 +93,39 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().total).to.equal(200)
   })
 
+  it('process valid value ', () => {
+    const component = Vue.extend({
+      data: () => ({ total: 100 }),
+      template: '<div><vue-numeric v-model="total" :min="10" :max="200"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(100)
+  })
+
+  it('allow minus value when minus props is true', () => {
+    const component = Vue.extend({
+      data: () => ({ total: -150 }),
+      template: '<div><vue-numeric v-model="total" :min="-150" :minus="true"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(-150)
+  })
+
+  it('disallow minus value when minus props is false', () => {
+    const component = Vue.extend({
+      data: () => ({ total: -150 }),
+      template: '<div><vue-numeric v-model="total" :min="-150" :minus="false"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(0)
+  })
+
   it('updates delayed value with format if without focus', done => {
     const el = document.createElement('div')
     const vm = new Vue({
@@ -152,7 +146,31 @@ describe('vue-numeric.vue', () => {
   })
 
   it('remove space if currency props undefined', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 2000 }})
+    const wrapper = mount(VueNumeric, {propsData: { value: 2000 }})
     expect(wrapper.data().amount).to.equal('2,000')
+  })
+
+  it('trigger onBlurHandler', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: 2000 }})
+    wrapper.trigger('blur')
+    expect(wrapper.data().amount).to.equal('2,000')
+  })
+
+  it('trigger onFocusHandler', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: 2000 }})
+    wrapper.trigger('focus')
+    expect(wrapper.data().amount).to.equal(2000)
+  })
+
+  it('trigger onInputHandler', () => {
+    const process = sinon.stub()
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000 }, methods: { process }})
+    wrapper.trigger('input')
+    expect(process.called).to.equal(true)
+  })
+
+  it('does not show default value when placeholder if defined', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000, placeholder: 'number here' }})
+    expect(wrapper.data().amount).to.equal('')
   })
 })

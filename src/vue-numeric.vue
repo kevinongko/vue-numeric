@@ -2,9 +2,9 @@
   <input
     :placeholder="placeholder"
     :value="value"
-    @blur="formatValue"
-    @input="processValue(amountValue)"
-    @focus="convertToNumber(numberValue)"
+    @blur="onBlurHandler"
+    @input="onInputHandler"
+    @focus="onFocusHandler"
     ref="numeric"
     type="tel"
     v-model="amount"
@@ -34,7 +34,7 @@ export default {
      */
     max: {
       required: false,
-      type: [Number, String]
+      type: Number
     },
 
     /**
@@ -43,7 +43,7 @@ export default {
     min: {
       default: 0,
       required: false,
-      type: [Number, String]
+      type: Number
     },
 
     /**
@@ -69,7 +69,7 @@ export default {
      */
     precision: {
       required: false,
-      type: [Number, String]
+      type: Number
     },
 
     /**
@@ -86,6 +86,7 @@ export default {
      * v-model value.
      */
     value: {
+      default: 0,
       required: true,
       type: [Number, String]
     },
@@ -125,37 +126,19 @@ export default {
 
   computed: {
     /**
-     * Number formatted user typed value.
+     * Number type of formatted value.
      * @return {Number}
      */
-    amountValue () {
-      return this.formatToNumber(this.amount)
+    amountNumber () {
+      return this.unformat(this.amount)
     },
 
     /**
-     * Number type from value props.
+     * Number type of value props.
      * @return {Number}
      */
-    numberValue () {
-      return this.formatToNumber(this.value)
-    },
-
-    /**
-     * Number formatted minimum value.
-     * @return {Number}
-     */
-    minValue () {
-      if (this.min) return this.formatToNumber(this.min)
-      return 0
-    },
-
-    /**
-     * Number formatted maximum value.
-     * @return {Number|undefined}
-     */
-    maxValue () {
-      if (this.max) return this.formatToNumber(this.max)
-      return undefined
+    valueNumber () {
+      return this.unformat(this.value)
     },
 
     /**
@@ -177,10 +160,10 @@ export default {
     },
 
     /**
-     * Define format for currency symbol and value.
+     * Define format position for currency symbol and value.
      * @return {String} format
      */
-    formatString () {
+    symbolPosition () {
       if (!this.currency) return '%v'
       return this.currencySymbolPosition === 'suffix' ? '%v %s' : '%s %v'
     }
@@ -188,76 +171,54 @@ export default {
 
   methods: {
     /**
-     * Check provided value againts maximum allowed.
-     * @param {Number} value
-     * @return {Boolean}
+     * Handle blur event.
      */
-    checkMaxValue (value) {
-      if (this.max) {
-        if (value <= this.maxValue) return false
-        return true
-      }
-      return false
+    onBlurHandler () {
+      this.amount = this.format(this.valueNumber)
     },
 
     /**
-     * Check provided value againts minimum allowed.
-     * @param {Number} value
-     * @return {Boolean}
+     * Handle focus event.
      */
-    checkMinValue (value) {
-      if (this.min) {
-        if (value >= this.minValue) return false
-        return true
-      }
-      return false
+    onFocusHandler () {
+      this.amount = this.valueNumber
     },
 
     /**
-     * Format provided value to number type.
-     * @param {String} value
-     * @return {Number}
+     * Handle input event.
      */
-    formatToNumber (value) {
-      let number = 0
-
-      if (this.separator === '.') {
-        let cleanValue = value
-        if (typeof value !== 'string') {
-          cleanValue = this.numberToString(value)
-        }
-        number = Number(String(cleanValue).replace(/[^0-9-,]+/g, '').replace(',', '.'))
-      } else {
-        number = Number(String(value).replace(/[^0-9-.]+/g, ''))
-      }
-
-      if (!this.minus) return Math.abs(number)
-      return number
+    onInputHandler () {
+      this.process(this.amountNumber)
     },
 
     /**
-     * Validate value before apply to the component.
+     * Validate value before update the component.
      * @param {Number} value
      */
-    processValue (value) {
-      if (isNaN(value)) {
-        this.updateValue(this.minValue)
-      } else if (this.checkMaxValue(value)) {
-        this.updateValue(this.maxValue)
-      } else if (this.checkMinValue(value)) {
-        this.updateValue(this.minValue)
-      } else {
-        this.updateValue(value)
-      }
+    process (value) {
+      if (value >= this.max) this.update(this.max)
+      if (value <= this.min) this.update(this.min)
+      if (value > this.min && value < this.max) this.update(value)
+      if (!this.minus && value < 0) this.update(0)
+    },
+
+    /**
+     * Update parent component model value.
+     * @param {Number} value
+     */
+    update (value) {
+      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
     },
 
     /**
      * Format value using symbol and separator.
+     * @param {Number} value
+     * @return {String}
      */
-    formatValue () {
-      this.amount = accounting.formatMoney(this.numberValue, {
+    format (value) {
+      return accounting.formatMoney(value, {
         symbol: this.currency,
-        format: this.formatString,
+        format: this.symbolPosition,
         precision: Number(this.precision),
         decimal: this.decimalSeparator,
         thousand: this.thousandSeparator
@@ -265,59 +226,37 @@ export default {
     },
 
     /**
-     * Update parent component model value.
-     * @param {Number} value
-     */
-    updateValue (value) {
-      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
-    },
-
-    /**
      * Remove symbol and separator.
      * @param {Number} value
+     * @return {Number}
      */
-    numberToString (value) {
-      return accounting.formatMoney(value, {
-        symbol: '',
-        precision: Number(this.precision),
-        decimal: this.decimalSeparator,
-        thousand: ''
-      })
-    },
-
-    /**
-     * Remove symbol and separator.
-     * @param {Number} value
-     */
-    convertToNumber (value) {
-      this.amount = this.numberToString(value)
+    unformat (value) {
+      return accounting.unformat(value, this.decimalSeparator)
     }
   },
 
   watch: {
     /**
-     * Watch for value change from other input.
-     *
-     * @param {Number} val
-     * @param {Number} oldVal
+     * Watch for value change from other input with same v-model.
+     * @param {Number} newValue
+     * @param {Number} oldValue
      */
-    numberValue (val, oldVal) {
-      if (this.amountValue !== val && this.amountValue === oldVal) {
-        this.convertToNumber(val)
+    valueNumber (newValue, oldValue) {
+      if (this.amountNumber !== newValue && this.amountNumber === oldValue) {
+        this.amount = newValue
         if (this.$refs.numeric !== document.activeElement) {
-          this.formatValue(val)
+          this.amount = this.format(newValue)
         }
       }
     },
 
     /**
      * When readOnly is true, replace the span tag class.
-     *
-     * @param {Boolean} val
-     * @param {Boolean} oldVal
+     * @param {Boolean} newValue
+     * @param {Boolean} oldValue
      */
-    readOnly (val, oldVal) {
-      if (oldVal === false && val === true) {
+    readOnly (newValue, oldValue) {
+      if (oldValue === false && newValue === true) {
         this.$nextTick(() => {
           this.$refs.readOnly.className = this.readOnlyClass
         })
@@ -326,22 +265,22 @@ export default {
   },
 
   mounted () {
-    // Check default value from parent v-model.
-    if (this.value) {
-      this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
+    // Set default value props when placeholder undefined.
+    if (!this.placeholder) {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
+
+      // In case of delayed props value.
+      setTimeout(() => {
+        this.process(this.valueNumber)
+        this.amount = this.format(this.valueNumber)
+      }, 500)
     }
 
     // Set read-only span element's class
     if (this.readOnly) {
       this.$refs.readOnly.className = this.readOnlyClass
     }
-
-    // In case of delayed v-model new value.
-    setTimeout(() => {
-      this.processValue(this.formatToNumber(this.value))
-      this.formatValue(this.value)
-    }, 500)
   }
 }
 </script>
