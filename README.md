@@ -135,8 +135,8 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 |-----|-----------|--------|----|-------|
 |currency|Currency prefix|false|String|-|
 |currency-symbol-position|Position of the symbol (accepted values: `prefix` or `suffix`)|false|String|`prefix`|
-|max|Maximum value allowed|false|Number|100 quadrillion|
-|min|Minimum value allowed|false|Number|0|
+|max|Maximum value allowed|false|Number|9007199254740991|
+|min|Minimum value allowed|false|Number|-9007199254740991|
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number|-|
