@@ -95,7 +95,7 @@ Limit the minimum and maximum value by using `min` and `max` props.
 - `min` and `max` accept `String` or `Number` values.
 
 ```vue
-<vue-numeric min="2000" v-bind:max="10000"></vue-numeric>
+<vue-numeric v-bind:min="2000" v-bind:max="10000"></vue-numeric>
 ```
 
 ### Disable/enable negative values
