@@ -33,6 +33,7 @@ export default {
      * Maximum value allowed.
      */
     max: {
+      default: 100000000000000000,
       required: false,
       type: Number
     },
