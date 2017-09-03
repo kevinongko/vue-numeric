@@ -71,6 +71,17 @@ describe('vue-numeric.vue', () => {
     })
   })
 
+  it('does not apply class when read-only mode disabled', done => {
+    const propsData = { value: 3000, readOnly: true, readOnlyClass: 'testclass' }
+    const wrapper = mount(VueNumeric, { propsData })
+
+    wrapper.setProps({ readOnly: false })
+    wrapper.instance().$nextTick(() => {
+      expect(wrapper.instance().$el.className).to.equal('')
+      done()
+    })
+  })
+
   it('cannot exceed max props', () => {
     const component = Vue.extend({
       data: () => ({ total: 150 }),
