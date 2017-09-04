@@ -184,4 +184,26 @@ describe('vue-numeric.vue', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 2000, placeholder: 'number here' }})
     expect(wrapper.data().amount).to.equal('')
   })
+
+  it('apply min props value if user input negative value when minus props disabled', () => {
+    const component = Vue.extend({
+      data: () => ({ total: -200 }),
+      template: '<div><vue-numeric v-model="total" :min="150" :minus="false"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(150)
+  })
+
+  it('apply 0 value if user input negative value when minus props disabled and min props is negative too', () => {
+    const component = Vue.extend({
+      data: () => ({ total: -200 }),
+      template: '<div><vue-numeric v-model="total" :min="-150" :minus="false"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(0)
+  })
 })
