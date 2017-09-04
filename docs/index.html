@@ -2,10 +2,142 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Vue numeric demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>vue-numeric demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css">
   </head>
   <body>
-    <div id="app"></div>
-    <script src="./build.js"></script>
+    <div id="app">
+      <section class="hero is-primary is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Vue Numeric
+            </h1>
+            <h2 class="subtitle">
+              Input field component to display currency value based on Vue
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <br>
+
+      <div class="container">
+
+        <div class="columns is-multiline is-mobile">
+          <div class="column is-12 has-text-centered">
+            <p class="control">
+              <label class="label"> Value: {{ money }} </label>
+              <vue-numeric
+                class="input is-large"
+                v-model="money"
+                :min="minValue"
+                :max="maxValue"
+                :currency="currency"
+                :separator="separator"
+                :precision="decimals"
+                :read-only="readOnly"
+                read-only-class="test"
+              >
+              </vue-numeric>
+            </p>
+          </div>
+        </div>
+
+        <hr>
+        <h1 class="title is-4">
+          Config:
+        </h1>
+
+        <div class="columns is-multiline is-mobile">
+          <div class="column is-12">
+            <p class="control">
+              <label class="label"> Currency symbol </label>
+              <input class="input" v-model="currency">
+            </p>
+          </div>
+          <div class="column is-12">
+            <p class="control">
+              <label class="label"> Minimum Value </label>
+              <input class="input" type="number" v-model="minValue">
+            </p>
+          </div>
+          <div class="column is-12">
+            <p class="control">
+              <label class="label"> Maximum Value </label>
+              <input class="input" type="number" v-model="maxValue">
+            </p>
+          </div>
+          <div class="column is-12">
+            <p class="control">
+              <label class="label"> Decimals digits </label>
+              <input class="input" type="number" v-model="decimals">
+            </p>
+          </div>
+          <div class="column is-12">
+            <label class="label"> Separator </label>
+            <p class="control">
+              <label class="radio">
+                <input type="radio" value="," v-model="separator">
+                use ',' as separator
+              </label>
+              <label class="radio">
+                <input type="radio" value="." v-model="separator">
+                use '.' as separator
+              </label>
+            </p>
+          </div>
+          <div class="column is-12">
+            <p class="control">
+              <input type="checkbox" v-model="readOnly">
+              Read Only
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="content has-text-centered">
+            <p>
+              <strong>Vue Numeric</strong> by <a href="http://kevinongko.com">Kevin Ongko</a>. The source code is licensed
+              <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+            </p>
+            <p>
+              <a href="https://github.com/kevinongko/vue-numeric">
+                <img src="https://img.shields.io/github/stars/kevinongko/vue-numeric.svg?style=social&label=Star">
+              </a>
+              <a href="https://github.com/kevinongko/vue-numeric">
+                <img src="https://img.shields.io/github/forks/kevinongko/vue-numeric.svg?style=social&label=Fork">
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-numeric"></script>
+
+    <script>
+      Vue.use(VueNumeric.default)
+
+      new Vue({
+        el: '#app',
+
+        data:  {
+          money: 100,
+          minValue: 0,
+          maxValue: 999999,
+          currency: '$',
+          decimals: 2,
+          separator: ',',
+          readOnly: false
+        }
+      })
+    </script>
   </body>
 </html>
