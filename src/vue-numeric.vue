@@ -270,6 +270,13 @@ export default {
     separator () {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
+    },
+    /**
+     * Immediately reflect currency changes
+     */
+    currency () {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
     }
   },
 

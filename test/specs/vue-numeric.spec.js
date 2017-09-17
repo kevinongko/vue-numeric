@@ -212,4 +212,10 @@ describe('vue-numeric.vue', () => {
     wrapper.setProps({ separator: '.' })
     expect(wrapper.data().amount).to.equal('2.000')
   })
+
+  it('apply new currency prop immediately if it is changed', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 0, currency: '$' } })
+    wrapper.setProps({ currency: 'USD' })
+    expect(wrapper.data().amount).to.equal('USD 0')
+  })
 })
