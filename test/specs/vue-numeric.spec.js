@@ -208,8 +208,8 @@ describe('vue-numeric.vue', () => {
   })
 
   it('apply new separator immediately if it is changed', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 2000, separator: "," } })
-    wrapper.setProps({ separator: "." })
-    expect(wrapper.data().amount).to.equal("2.000")
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000, separator: ',' } })
+    wrapper.setProps({ separator: '.' })
+    expect(wrapper.data().amount).to.equal('2.000')
   })
 })
