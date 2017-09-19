@@ -262,6 +262,14 @@ export default {
           this.$refs.readOnly.className = this.readOnlyClass
         })
       }
+    },
+
+    /**
+     * Immediately reflect separator changes
+     */
+    separator () {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
     }
   },
 
