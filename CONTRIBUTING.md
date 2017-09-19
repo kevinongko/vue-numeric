@@ -31,6 +31,7 @@ example:
 - Make sure current tests is all green :white_check_mark:
 - If you've added code that should be tested, add tests!
 - Any new feature or changes should include tests for it.
+- Make sure code coverage % does not decrease.
 
 ## Readme
 Update the [README.md](https://github.com/kevinongko/vue-numeric/blob/master/README.md) with details of changes.
