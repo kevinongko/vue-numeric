@@ -1,6 +1,6 @@
 {
   "name": "vue-numeric",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Input field component to display currency value based on Vue.",
   "author": "Kevin Ongko",
   "main": "dist/vue-numeric.min.js",
@@ -28,8 +28,8 @@
     "accounting-js": "^1.1.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start test/karma.config.js",
-    "test:watch": "./node_modules/.bin/karma start test/karma.config.js --single-run=false",
+    "test": "cross-env BABEL_ENV=test ./node_modules/.bin/karma start test/karma.config.js",
+    "test:watch": "cross-env BABEL_ENV=test ./node_modules/.bin/karma start test/karma.config.js --single-run=false",
     "lint": "./node_modules/.bin/eslint --ext .js,.vue src spec",
     "build": "./node_modules/.bin/webpack --hide-modules -p --progress",
     "report-coverage": "codecov"
@@ -39,10 +39,11 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.4",
-    "babel-preset-latest": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
     "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.16",
     "codecov": "^2.3.0",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "eslint": "^4.6.0",
     "eslint-plugin-vue": "3.12.0",
@@ -65,11 +66,28 @@
   },
   "babel": {
     "presets": [
-      "latest"
+      [
+        "env",
+        {
+          "uglify": true,
+          "modules": false,
+          "targets": {
+            "browsers": [
+              "> 1%",
+              "last 2 versions",
+              "not ie <= 8"
+            ]
+          }
+        }
+      ]
     ],
-    "plugins": [
-      "istanbul"
-    ]
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
   },
   "eslintConfig": {
     "extends": [

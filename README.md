@@ -17,6 +17,7 @@ Input field component to display a formatted currency value based on [Vue](https
 
 ### Install via CDN
 ```html
+<script src="https://unpkg.com/accounting-js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vue-numeric"></script>
 
