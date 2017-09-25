@@ -17,7 +17,12 @@ module.exports = {
   },
   entry: './src/index.js',
   externals: {
-    'accounting-js': 'accounting'
+    'accounting-js': {
+      commonjs: 'accounting-js',
+      commonjs2: 'accounting-js',
+      amd: 'accounting-js',
+      root: 'accounting'
+    }
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
