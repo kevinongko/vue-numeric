@@ -16,9 +16,9 @@ module.exports = {
     extensions: ['.js', '.json', '.vue']
   },
   entry: './src/index.js',
-  externals: {
-    'accounting-js': 'accounting'
-  },
+  externals: [
+    'accounting-js'
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: "vue-numeric.min.js",
@@ -46,4 +46,4 @@ module.exports = {
   performance: {
     hints: false
   }
-}
+};
