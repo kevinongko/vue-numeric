@@ -1,7 +1,6 @@
 <template>
   <input
     :placeholder="placeholder"
-    :value="value"
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
