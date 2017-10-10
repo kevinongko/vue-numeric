@@ -1,0 +1,1 @@
+> Make sure to read the [contribution guidelines](https://github.com/kevinongko/vue-numeric/blob/master/.github/CONTRIBUTING.md) before submitting PR.
