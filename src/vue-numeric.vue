@@ -181,7 +181,7 @@ export default {
      * Handle focus event.
      */
     onFocusHandler () {
-      this.amount = this.valueNumber
+      this.amount = this.format(this.valueNumber)
     },
 
     /**
