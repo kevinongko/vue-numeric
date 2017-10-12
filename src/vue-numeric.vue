@@ -173,15 +173,17 @@ export default {
     /**
      * Handle blur event.
      */
-    onBlurHandler () {
+    onBlurHandler (e) {
       this.amount = this.format(this.valueNumber)
+      this.$emit('blur', e)
     },
 
     /**
      * Handle focus event.
      */
-    onFocusHandler () {
+    onFocusHandler (e) {
       this.amount = this.valueNumber
+      this.$emit('focus', e)
     },
 
     /**
