@@ -183,7 +183,13 @@ export default {
      */
     onFocusHandler (e) {
       this.$emit('focus', e)
-      this.amount = this.valueNumber
+      this.amount = accounting.formatMoney(this.valueNumber, {
+        symbol: '',
+        format: '%v',
+        thousand: '',
+        decimal: this.decimalSeparator,
+        precision: Number(this.precision)
+      })
     },
 
     /**

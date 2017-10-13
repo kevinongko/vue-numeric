@@ -161,19 +161,25 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('2,000')
   })
 
-  it('trigger onBlurHandler', () => {
+  it('format value on blur', () => {
     const wrapper = mount(VueNumeric, {propsData: { value: 2000 }})
     wrapper.trigger('blur')
     expect(wrapper.data().amount).to.equal('2,000')
   })
 
-  it('trigger onFocusHandler', () => {
-    const wrapper = mount(VueNumeric, {propsData: { value: 2000 }})
+  it('remove thousand separator and symbol on focus with , decimal', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: 2000.21, separator: '.', precision: 2 }})
     wrapper.trigger('focus')
-    expect(wrapper.data().amount).to.equal(2000)
+    expect(wrapper.data().amount).to.equal('2000,21')
   })
 
-  it('trigger onInputHandler', () => {
+  it('remove thousand separator and symbol on focus with . decimal', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: 2000.21, separator: ',', precision: 2 }})
+    wrapper.trigger('focus')
+    expect(wrapper.data().amount).to.equal('2000.21')
+  })
+
+  it('process value on input', () => {
     const process = sinon.stub()
     const wrapper = mount(VueNumeric, { propsData: { value: 2000 }, methods: { process }})
     wrapper.trigger('input')
