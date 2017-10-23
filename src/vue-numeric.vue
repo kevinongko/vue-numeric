@@ -146,8 +146,8 @@ export default {
      * @return {String} '.' or ','
      */
     decimalSeparator () {
-      if (this.separator === '.') return ','
-      return '.'
+      if (this.separator === ',') return '.'
+      return ','
     },
 
     /**
@@ -156,6 +156,7 @@ export default {
      */
     thousandSeparator () {
       if (this.separator === '.') return '.'
+      if (this.separator === 'space') return ' '
       return ','
     },
 
@@ -301,9 +302,7 @@ export default {
     }
 
     // Set read-only span element's class
-    if (this.readOnly) {
-      this.$refs.readOnly.className = this.readOnlyClass
-    }
+    if (this.readOnly) this.$refs.readOnly.className = this.readOnlyClass
   }
 }
 </script>

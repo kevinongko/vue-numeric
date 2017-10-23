@@ -41,9 +41,19 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('$ 2,000.4')
   })
 
-  it('format values with correct separator', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 2000000, currency: '$', separator: '.' }})
-    expect(wrapper.data().amount).to.equal('$ 2.000.000')
+  it('format values with . separator', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000000, currency: '$', separator: '.', precision: 2 }})
+    expect(wrapper.data().amount).to.equal('$ 2.000.000,00')
+  })
+
+  it('format values with , separator', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000000, currency: '$', separator: ',', precision: 2 }})
+    expect(wrapper.data().amount).to.equal('$ 2,000,000.00')
+  })
+
+  it('format values with space separator', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000000, currency: '$', separator: 'space', precision: 2  }})
+    expect(wrapper.data().amount).to.equal('$ 2 000 000,00')
   })
 
   it('format values with correct decimals symbol when using different thousand separator', () => {

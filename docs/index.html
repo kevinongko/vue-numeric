@@ -91,6 +91,10 @@
                 <input type="radio" value="." v-model="separator">
                 use '.' as separator
               </label>
+              <label class="radio">
+                <input type="radio" value="space" v-model="separator">
+                use space as separator
+              </label>
             </p>
           </div>
           <div class="column is-12">
@@ -135,7 +139,7 @@
         el: '#app',
 
         data:  {
-          money: 100,
+          money: 1000,
           minValue: 0,
           maxValue: 999999,
           currency: '$',
