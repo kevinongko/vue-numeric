@@ -119,7 +119,7 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 ### Thousands separator
 - Default thousand separator's symbol is `,`.
 - Use the `separator` prop to change the thousands separator.
-- `separator` only accepts `spance`, `,` or `.`.
+- `separator` only accepts `space`, `,` or `.`.
 - When using the `.` or `space` as thousand separator, the decimal separator will be `,`.
 
 ```vue
