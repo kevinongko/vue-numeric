@@ -119,8 +119,8 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 ### Thousands separator
 - Default thousand separator's symbol is `,`.
 - Use the `separator` prop to change the thousands separator.
-- `separator` only accepts `,` or `.`.
-- When using the `.` as a separator, use a `,` for a decimal and vice versa.
+- `separator` only accepts `spance`, `,` or `.`.
+- When using the `.` or `space` as thousand separator, the decimal separator will be `,`.
 
 ```vue
 <vue-numeric separator="."></vue-numeric>
@@ -141,7 +141,7 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
 |precision|Number of decimals|false|Number|-|
-|separator|Thousand separator symbol (accepts either `.` or `,`)|false|String|`,`|
+|separator|Thousand separator symbol (accepts `space`, `.` or `,`)|false|String|`,`|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
 
