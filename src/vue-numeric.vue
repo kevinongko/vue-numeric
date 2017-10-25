@@ -248,14 +248,10 @@ export default {
     /**
      * Watch for value change from other input with same v-model.
      * @param {Number} newValue
-     * @param {Number} oldValue
      */
-    valueNumber (newValue, oldValue) {
-      if (this.amountNumber !== newValue && this.amountNumber === oldValue) {
-        this.amount = newValue
-        if (this.$refs.numeric !== document.activeElement) {
-          this.amount = this.format(newValue)
-        }
+    valueNumber (newValue) {
+      if (this.$refs.numeric !== document.activeElement) {
+        this.amount = this.format(newValue)
       }
     },
 
@@ -279,6 +275,7 @@ export default {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
     },
+
     /**
      * Immediately reflect currency changes
      */
