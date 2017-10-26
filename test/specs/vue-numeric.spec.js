@@ -6,11 +6,6 @@ import VueNumeric from '@/vue-numeric'
 import sinon from 'sinon'
 
 describe('vue-numeric.vue', () => {
-  it('has name', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 0 } })
-    expect(wrapper.name()).to.equal('vue-numeric')
-  })
-
   it('Use default decimal separator', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 2000 }})
     expect(wrapper.data().amount).to.equal('2,000')
@@ -177,6 +172,12 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('2,000')
   })
 
+  it('clear the field if zero value', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: 0, separator: '.', precision: 2 }})
+    wrapper.trigger('focus')
+    expect(wrapper.data().amount).to.equal(null)
+  })
+
   it('remove thousand separator and symbol on focus with , decimal', () => {
     const wrapper = mount(VueNumeric, {propsData: { value: 2000.21, separator: '.', precision: 2 }})
     wrapper.trigger('focus')
@@ -224,13 +225,13 @@ describe('vue-numeric.vue', () => {
   })
 
   it('apply new separator immediately if it is changed', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 2000, separator: ',' } })
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000, separator: ',' }})
     wrapper.setProps({ separator: '.' })
     expect(wrapper.data().amount).to.equal('2.000')
   })
 
   it('apply new currency prop immediately if it is changed', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 0, currency: '$' } })
+    const wrapper = mount(VueNumeric, { propsData: { value: 0, currency: '$' }})
     wrapper.setProps({ currency: 'USD' })
     expect(wrapper.data().amount).to.equal('USD 0')
   })

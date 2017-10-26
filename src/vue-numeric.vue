@@ -173,6 +173,7 @@ export default {
   methods: {
     /**
      * Handle blur event.
+     * @param {Object} e
      */
     onBlurHandler (e) {
       this.$emit('blur', e)
@@ -181,16 +182,21 @@ export default {
 
     /**
      * Handle focus event.
+     * @param {Object} e
      */
     onFocusHandler (e) {
       this.$emit('focus', e)
-      this.amount = accounting.formatMoney(this.valueNumber, {
-        symbol: '',
-        format: '%v',
-        thousand: '',
-        decimal: this.decimalSeparator,
-        precision: Number(this.precision)
-      })
+      if (this.valueNumber === 0) {
+        this.amount = null
+      } else {
+        this.amount = accounting.formatMoney(this.valueNumber, {
+          symbol: '',
+          format: '%v',
+          thousand: '',
+          decimal: this.decimalSeparator,
+          precision: Number(this.precision)
+        })
+      }
     },
 
     /**
