@@ -158,7 +158,7 @@ export default {
      * @return {String} '.' or ','
      */
     $decimalSeparator () {
-      if (this.decimalSeparator) return this.decimalSeparator
+      if (typeof this.decimalSeparator !== 'undefined') return this.decimalSeparator
       if (this.separator === ',') return '.'
       return ','
     },
@@ -168,7 +168,7 @@ export default {
      * @return {String} '.' or ','
      */
     $thousandSeparator () {
-      if (this.thousandSeparator) return this.thousandSeparator
+      if (typeof this.thousandSeparator !== 'undefined') return this.thousandSeparator
       if (this.separator === '.') return '.'
       if (this.separator === 'space') return ' '
       return ','
