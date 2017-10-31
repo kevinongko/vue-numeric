@@ -72,12 +72,24 @@ export default {
       type: Number
     },
 
+    separator: {
+      default: ',',
+      required: false,
+      type: String
+    },
+
     /**
      * Thousand separator type.
      * Separator props accept either . or , (default).
      */
-    separator: {
+    thousandSeparator: {
       default: ',',
+      required: false,
+      type: String
+    },
+
+    decimalSeparator: {
+      default: '.',
       required: false,
       type: String
     },
@@ -146,6 +158,7 @@ export default {
      * @return {String} '.' or ','
      */
     decimalSeparator () {
+      if (this.decimalSeparator) return this.decimalSeparator
       if (this.separator === ',') return '.'
       return ','
     },
@@ -155,6 +168,7 @@ export default {
      * @return {String} '.' or ','
      */
     thousandSeparator () {
+      if (this.thousandSeparator) return this.thousandSeparator
       if (this.separator === '.') return '.'
       if (this.separator === 'space') return ' '
       return ','
