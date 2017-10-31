@@ -157,7 +157,7 @@ export default {
      * Define decimal separator based on separator props.
      * @return {String} '.' or ','
      */
-    decimalSeparator () {
+    $decimalSeparator () {
       if (this.decimalSeparator) return this.decimalSeparator
       if (this.separator === ',') return '.'
       return ','
@@ -167,7 +167,7 @@ export default {
      * Define thousand separator based on separator props.
      * @return {String} '.' or ','
      */
-    thousandSeparator () {
+    $thousandSeparator () {
       if (this.thousandSeparator) return this.thousandSeparator
       if (this.separator === '.') return '.'
       if (this.separator === 'space') return ' '
@@ -207,7 +207,7 @@ export default {
           symbol: '',
           format: '%v',
           thousand: '',
-          decimal: this.decimalSeparator,
+          decimal: this.$decimalSeparator,
           precision: Number(this.precision)
         })
       }
@@ -249,8 +249,8 @@ export default {
         symbol: this.currency,
         format: this.symbolPosition,
         precision: Number(this.precision),
-        decimal: this.decimalSeparator,
-        thousand: this.thousandSeparator
+        decimal: this.$decimalSeparator,
+        thousand: this.$thousandSeparator
       })
     },
 
@@ -260,7 +260,7 @@ export default {
      * @return {Number}
      */
     unformat (value) {
-      return accounting.unformat(value, this.decimalSeparator)
+      return accounting.unformat(value, this.$decimalSeparator)
     }
   },
 
