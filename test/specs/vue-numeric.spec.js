@@ -235,4 +235,10 @@ describe('vue-numeric.vue', () => {
     wrapper.setProps({ currency: 'USD' })
     expect(wrapper.data().amount).to.equal('USD 0')
   })
+
+  it('apply new precision immediately if it is changed', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000.17, precision: 2 }})
+    wrapper.setProps({ precision: 1 })
+    expect(wrapper.data().amount).to.equal('2,000.2')
+  })
 })

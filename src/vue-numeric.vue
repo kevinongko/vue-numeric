@@ -288,6 +288,14 @@ export default {
     currency () {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
+    },
+
+    /**
+     * Immediately reflect precision changes
+     */
+    precision () {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
     }
   },
 
