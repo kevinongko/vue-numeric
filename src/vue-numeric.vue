@@ -32,7 +32,7 @@ export default {
      * Maximum value allowed.
      */
     max: {
-      default: Number.MAX_SAFE_INTEGER,
+      default: Number.MAX_SAFE_INTEGER || 9007199254740991,
       required: false,
       type: Number
     },
@@ -41,7 +41,7 @@ export default {
      * Minimum value allowed.
      */
     min: {
-      default: Number.MIN_SAFE_INTEGER,
+      default: Number.MIN_SAFE_INTEGER || -9007199254740991,
       required: false,
       type: Number
     },
