@@ -9,67 +9,71 @@
     v-model="amount"
     v-if="!readOnly"
   >
-  <span v-else ref="readOnly">{{ amount }}</span>
+  <span
+    v-else
+    ref="readOnly"
+  >{{ amount }}</span>
 </template>
 
 <script>
 import accounting from 'accounting-js'
 
 export default {
-  name: 'vue-numeric',
+  name: 'VueNumeric',
 
   props: {
     /**
      * Currency symbol.
      */
     currency: {
+      type: String,
       default: '',
-      required: false,
-      type: String
+      required: false
     },
 
     /**
      * Maximum value allowed.
      */
     max: {
+      type: Number,
       default: Number.MAX_SAFE_INTEGER || 9007199254740991,
       required: false,
-      type: Number
     },
 
     /**
      * Minimum value allowed.
      */
     min: {
+      type: Number,
       default: Number.MIN_SAFE_INTEGER || -9007199254740991,
-      required: false,
-      type: Number
+      required: false
     },
 
     /**
      * Enable/Disable minus value.
      */
     minus: {
+      type: Boolean,
       default: false,
-      required: false,
-      type: Boolean
+      required: false
     },
 
     /**
      * Input placeholder.
      */
     placeholder: {
-      required: false,
-      type: String
+      type: String,
+      default: '',
+      required: false
     },
 
     /**
      * Value when the input is empty
      */
     emptyValue: {
+      type: [Number, String],
       default: '',
-      required: false,
-      type: [Number, String]
+      required: false
     },
 
     /**
@@ -77,8 +81,9 @@ export default {
      * Decimals symbol are the opposite of separator symbol.
      */
     precision: {
-      required: false,
-      type: Number
+      type: Number,
+      default: 0,
+      required: false
     },
 
     /**
@@ -86,36 +91,36 @@ export default {
      * Separator props accept either . or , (default).
      */
     separator: {
+      type: String,
       default: ',',
-      required: false,
-      type: String
+      required: false
     },
 
     /**
      * v-model value.
      */
     value: {
+      type: [Number, String],
       default: 0,
-      required: true,
-      type: [Number, String]
+      required: true
     },
 
     /**
      * Hide input and show value in text only.
      */
     readOnly: {
+      type: Boolean,
       default: false,
-      required: false,
-      type: Boolean
+      required: false
     },
 
     /**
      * Class for the span tag when readOnly props is true.
      */
     readOnlyClass: {
+      type: String,
       default: '',
-      required: false,
-      type: String
+      required: false
     },
 
     /**
@@ -123,9 +128,9 @@ export default {
      * Symbol position props accept either 'suffix' or 'prefix' (default).
      */
     currencySymbolPosition: {
+      type: String,
       default: 'prefix',
-      required: false,
-      type: String
+      required: false
     }
   },
 
@@ -177,6 +182,72 @@ export default {
       if (!this.currency) return '%v'
       return this.currencySymbolPosition === 'suffix' ? '%v %s' : '%s %v'
     }
+  },
+
+  watch: {
+    /**
+     * Watch for value change from other input with same v-model.
+     * @param {Number} newValue
+     */
+    valueNumber (newValue) {
+      if (this.$refs.numeric !== document.activeElement) {
+        this.amount = this.format(newValue)
+      }
+    },
+
+    /**
+     * When readOnly is true, replace the span tag class.
+     * @param {Boolean} newValue
+     * @param {Boolean} oldValue
+     */
+    readOnly (newValue, oldValue) {
+      if (oldValue === false && newValue === true) {
+        this.$nextTick(() => {
+          this.$refs.readOnly.className = this.readOnlyClass
+        })
+      }
+    },
+
+    /**
+     * Immediately reflect separator changes
+     */
+    separator () {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
+    },
+
+    /**
+     * Immediately reflect currency changes
+     */
+    currency () {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
+    },
+
+    /**
+     * Immediately reflect precision changes
+     */
+    precision () {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
+    }
+  },
+
+  mounted () {
+    // Set default value props when placeholder undefined.
+    if (!this.placeholder) {
+      this.process(this.valueNumber)
+      this.amount = this.format(this.valueNumber)
+
+      // In case of delayed props value.
+      setTimeout(() => {
+        this.process(this.valueNumber)
+        this.amount = this.format(this.valueNumber)
+      }, 500)
+    }
+
+    // Set read-only span element's class
+    if (this.readOnly) this.$refs.readOnly.className = this.readOnlyClass
   },
 
   methods: {
@@ -258,72 +329,6 @@ export default {
       const toUnformat = typeof value === 'string' && value === '' ? this.emptyValue : value
       return accounting.unformat(toUnformat, this.decimalSeparator)
     }
-  },
-
-  watch: {
-    /**
-     * Watch for value change from other input with same v-model.
-     * @param {Number} newValue
-     */
-    valueNumber (newValue) {
-      if (this.$refs.numeric !== document.activeElement) {
-        this.amount = this.format(newValue)
-      }
-    },
-
-    /**
-     * When readOnly is true, replace the span tag class.
-     * @param {Boolean} newValue
-     * @param {Boolean} oldValue
-     */
-    readOnly (newValue, oldValue) {
-      if (oldValue === false && newValue === true) {
-        this.$nextTick(() => {
-          this.$refs.readOnly.className = this.readOnlyClass
-        })
-      }
-    },
-
-    /**
-     * Immediately reflect separator changes
-     */
-    separator () {
-      this.process(this.valueNumber)
-      this.amount = this.format(this.valueNumber)
-    },
-
-    /**
-     * Immediately reflect currency changes
-     */
-    currency () {
-      this.process(this.valueNumber)
-      this.amount = this.format(this.valueNumber)
-    },
-
-    /**
-     * Immediately reflect precision changes
-     */
-    precision () {
-      this.process(this.valueNumber)
-      this.amount = this.format(this.valueNumber)
-    }
-  },
-
-  mounted () {
-    // Set default value props when placeholder undefined.
-    if (!this.placeholder) {
-      this.process(this.valueNumber)
-      this.amount = this.format(this.valueNumber)
-
-      // In case of delayed props value.
-      setTimeout(() => {
-        this.process(this.valueNumber)
-        this.amount = this.format(this.valueNumber)
-      }, 500)
-    }
-
-    // Set read-only span element's class
-    if (this.readOnly) this.$refs.readOnly.className = this.readOnlyClass
   }
 }
 </script>
