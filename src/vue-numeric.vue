@@ -64,6 +64,15 @@ export default {
     },
 
     /**
+     * Value when the input is empty
+     */
+    emptyValue: {
+      default: '',
+      required: false,
+      type: [Number, String]
+    },
+
+    /**
      * Number of decimals.
      * Decimals symbol are the opposite of separator symbol.
      */
@@ -246,7 +255,8 @@ export default {
      * @return {Number}
      */
     unformat (value) {
-      return accounting.unformat(value, this.decimalSeparator)
+      const toUnformat = typeof value === 'string' && value === '' ? this.emptyValue : value
+      return accounting.unformat(toUnformat, this.decimalSeparator)
     }
   },
 
