@@ -1,6 +1,6 @@
 {
   "name": "vue-numeric",
-  "version": "2.2.6",
+  "version": "2.2.8",
   "description": "Input field component to display currency value based on Vue.",
   "author": "Kevin Ongko",
   "main": "dist/vue-numeric.min.js",
@@ -46,7 +46,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "eslint": "^4.6.0",
-    "eslint-plugin-vue": "3.13.1",
+    "eslint-plugin-vue": "^4.0.0-beta.0",
     "karma": "^1.7.1",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",

@@ -131,6 +131,12 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 <vue-numeric placeholder="only number allowed"></vue-numeric>
 ```
 
+### Value when empty
+By default, when you clean the input the value is set to `0`. You can change this value to fit your needs.
+```vue
+<vue-numeric :empty-value="1"></vue-numeric>
+```
+
 ## Props
 |Props|Description|Required|Type|Default|
 |-----|-----------|--------|----|-------|
@@ -140,6 +146,7 @@ By default the decimal value is disabled. To use decimals in the value, add the 
 |min|Minimum value allowed|false|Number|-9007199254740991|
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
+|empty-value|Value when input is empty|false|Number|0|
 |precision|Number of decimals|false|Number|-|
 |separator|Thousand separator symbol (accepts `space`, `.` or `,`)|false|String|`,`|
 |read-only|Hide input field and show the value as text|false|Boolean|false|

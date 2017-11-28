@@ -202,6 +202,16 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('')
   })
 
+  it('sets the value to 0 when no empty value is provided and input is empty', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: '' }})
+    expect(wrapper.data().amount).to.equal('0')
+  })
+
+  it('uses the provided empty value when input is empty', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: '', emptyValue: 1 }})
+    expect(wrapper.data().amount).to.equal('1')
+  })
+
   it('apply min props value if user input negative value when minus props disabled', () => {
     const component = Vue.extend({
       data: () => ({ total: -200 }),
@@ -234,5 +244,11 @@ describe('vue-numeric.vue', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 0, currency: '$' }})
     wrapper.setProps({ currency: 'USD' })
     expect(wrapper.data().amount).to.equal('USD 0')
+  })
+
+  it('apply new precision immediately if it is changed', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000.17, precision: 2 }})
+    wrapper.setProps({ precision: 1 })
+    expect(wrapper.data().amount).to.equal('2,000.2')
   })
 })
