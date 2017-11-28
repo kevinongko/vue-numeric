@@ -101,7 +101,7 @@ export default {
      * Accepts any string.
      */
     thousandSeparator: {
-      default: ',',
+      default: undefined,
       required: false,
       type: String
     },
@@ -111,7 +111,7 @@ export default {
      * Accepts any string.
      */
     decimalSeparator: {
-      default: '.',
+      default: undefined,
       required: false,
       type: String
     },
