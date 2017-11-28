@@ -251,4 +251,16 @@ describe('vue-numeric.vue', () => {
     wrapper.setProps({ precision: 1 })
     expect(wrapper.data().amount).to.equal('2,000.2')
   })
+
+  it('allow to use arbitrary separators', () => {
+    const wrapper = mount(VueNumeric, {
+      propsData: {
+        value: 1000.94 ,
+        precision: 2,
+        thousandSeparator: ' ',
+        decimalSeparator: ','
+      }
+    })
+    expect(wrapper.data().amount).to.equal('1 000,94')
+  })
 })
