@@ -72,6 +72,10 @@ export default {
       type: Number
     },
 
+    /**
+     * Thousand separator type.
+     * Separator props accept either . or , (default).
+     */
     separator: {
       default: ',',
       required: false,
@@ -79,8 +83,8 @@ export default {
     },
 
     /**
-     * Thousand separator type.
-     * Separator props accept either . or , (default).
+     * Forced thousand separator.
+     * Accepts any string.
      */
     thousandSeparator: {
       default: ',',
@@ -88,6 +92,10 @@ export default {
       type: String
     },
 
+    /**
+     * Forced decimal separator.
+     * Accepts any string.
+     */
     decimalSeparator: {
       default: '.',
       required: false,
