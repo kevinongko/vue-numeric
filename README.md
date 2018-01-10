@@ -149,6 +149,8 @@ By default, when you clean the input the value is set to `0`. You can change thi
 |empty-value|Value when input is empty|false|Number|0|
 |precision|Number of decimals|false|Number|-|
 |separator|Thousand separator symbol (accepts `space`, `.` or `,`)|false|String|`,`|
+|decimal-separator|Custom decimal separator|false|String|-|
+|thousand-separator|Custom thousand separator|false|String|-|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
 
