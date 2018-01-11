@@ -117,6 +117,16 @@ export default {
     },
 
     /**
+      * The output type used for v-model.
+      * It can either be String or Number (default).
+      */
+    outputType: {
+      required: false,
+        type: String,
+        default: 'Number'
+    },
+
+    /**
      * v-model value.
      */
     value: {
@@ -324,7 +334,9 @@ export default {
      * @param {Number} value
      */
     update (value) {
-      this.$emit('input', Number(accounting.toFixed(value, this.precision)))
+      const fixedValue = accounting.toFixed(value, this.precision)
+      const output = this.outputType.toLowerCase() === 'string' ? fixedValue : Number(fixedValue)
+      this.$emit('input', output)
     },
 
     /**
