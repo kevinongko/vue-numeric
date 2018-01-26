@@ -137,6 +137,13 @@ By default, when you clean the input the value is set to `0`. You can change thi
 <vue-numeric :empty-value="1"></vue-numeric>
 ```
 
+### Output Type
+By default the value emitted for the input event is of type `Number`. However you may choose to get a `String` instead
+by setting the property `output-type` to `String`.
+```vue
+<vue-numeric output-type="String"></vue-numeric>
+```  
+
 ## Props
 |Props|Description|Required|Type|Default|
 |-----|-----------|--------|----|-------|
@@ -147,6 +154,7 @@ By default, when you clean the input the value is set to `0`. You can change thi
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
 |empty-value|Value when input is empty|false|Number|0|
+|output-type|Output Type for input event|false|String|`String`|
 |precision|Number of decimals|false|Number|-|
 |separator|Thousand separator symbol (accepts `space`, `.` or `,`)|false|String|`,`|
 |decimal-separator|Custom decimal separator|false|String|-|

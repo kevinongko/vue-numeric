@@ -56,6 +56,28 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('$ 20.000,4')
   })
 
+  it('outputs Number type by default', () => {
+    const component = Vue.extend({
+      data: () => ({ total: 100 }),
+      template: '<div><vue-numeric v-model="total" :min="1" :max="100"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(typeof wrapper.data().total).to.equal('number')
+  })
+
+  it('outputs String if specified', () => {
+    const component = Vue.extend({
+        data: () => ({ total: 100 }),
+        template: '<div><vue-numeric v-model="total" outputType="String" :min="1" :max="100"></vue-numeric></div>',
+        components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(typeof wrapper.data().total).to.equal('string')
+  })
+
   it('is <span> tag in read-only mode', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 2000, currency: '$', readOnly: true, readOnlyClass: 'test-class' }})
     wrapper.update()
