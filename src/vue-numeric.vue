@@ -1,13 +1,14 @@
 <template>
   <input
+    v-if="!readOnly"
+    ref="numeric"
+    v-model="amount"
     :placeholder="placeholder"
+    type="tel"
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
-    ref="numeric"
-    type="tel"
-    v-model="amount"
-    v-if="!readOnly"
+    @keydown="onKeyDownHandler"
   >
   <span
     v-else
@@ -318,6 +319,22 @@ export default {
       this.process(this.amountNumber)
     },
 
+    /**
+     * Handle key input event.
+     * @param {Object} event
+     */
+    onKeyDownHandler (event) {
+      if(!((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode == 8 || 
+          event.keyCode == 9 ||
+          event.keyCode == 190 ||
+          event.keyCode == 188 ||
+          event.keyCode == 32 ||
+          event.key == "-" ||
+          event.key == "+" ||
+          event.keyCode == 13)))
+        event.preventDefault();
+    },
+    
     /**
      * Validate value before update the component.
      * @param {Number} value

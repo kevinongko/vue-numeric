@@ -285,4 +285,13 @@ describe('vue-numeric.vue', () => {
     })
     expect(wrapper.data().amount).to.equal('1 000,94')
   })
+
+  it('should only accept numberic input, "+", "-", "Backspace", "Enter", "Tab"', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: 2000 }})
+    wrapper.find('input')[0].trigger('keydown', { keyCode: 10 })
+    wrapper.find('input')[0].trigger('keydown', { keyCode: 90 })
+    wrapper.find('input')[0].trigger('keydown', { key: "+" })
+    wrapper.find('input')[0].trigger('keydown', { key: "-" })
+    expect(wrapper.data().amount).to.equal('2,000')
+  })
 })

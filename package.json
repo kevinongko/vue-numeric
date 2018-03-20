@@ -35,7 +35,7 @@
     "report-coverage": "codecov"
   },
   "devDependencies": {
-    "avoriaz": "^4.0.0",
+    "avoriaz": "^6.3.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.4",
