@@ -167,7 +167,7 @@ Set dynamic inline CSS styles for the input.
 |thousand-separator|Custom thousand separator|false|String|-|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
-|style|Inline CSS styles for input|false|Objext|{}|
+|style|Inline CSS styles for input|false|Object|{}|
 
 ## License
 
