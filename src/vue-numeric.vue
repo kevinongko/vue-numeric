@@ -8,6 +8,7 @@
     type="tel"
     v-model="amount"
     v-if="!readOnly"
+    :style="style"
   >
   <span
     v-else
@@ -160,6 +161,15 @@ export default {
     currencySymbolPosition: {
       type: String,
       default: 'prefix',
+      required: false
+    },
+
+    /**
+     * Inline styles
+     */
+    style: {
+      type: [Object],
+      default: {},
       required: false
     }
   },

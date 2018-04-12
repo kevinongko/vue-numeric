@@ -144,6 +144,12 @@ by setting the property `output-type` to `String`.
 <vue-numeric output-type="String"></vue-numeric>
 ```  
 
+### Inline CSS Styles
+Set dynamic inline CSS styles for the input.
+```vue
+<vue-numeric :style="{width: '100px'}"></vue-numeric>
+```  
+
 ## Props
 |Props|Description|Required|Type|Default|
 |-----|-----------|--------|----|-------|
@@ -161,6 +167,7 @@ by setting the property `output-type` to `String`.
 |thousand-separator|Custom thousand separator|false|String|-|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
+|style|Inline CSS styles for input|false|Object|{}|
 
 ## License
 
