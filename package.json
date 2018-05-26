@@ -1,6 +1,6 @@
 {
   "name": "vue-numeric",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Input field component to display currency value based on Vue.",
   "author": "Kevin Ongko",
   "main": "dist/vue-numeric.min.js",
