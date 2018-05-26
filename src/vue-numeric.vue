@@ -349,11 +349,16 @@ export default {
      * @param {Number} value
      */
     update (value) {
+      var output;
+
       if (value !== null) {
         const fixedValue = accounting.toFixed(value, this.precision)
-        const output = this.outputType.toLowerCase() === 'string' ? fixedValue : Number(fixedValue)
-        this.$emit('input', output)
+        output = this.outputType.toLowerCase() === 'string' ? fixedValue : Number(fixedValue)
+      } else {
+        output = null;
       }
+
+      this.$emit('input', output)
     },
 
     /**
