@@ -267,7 +267,7 @@ export default {
 
   mounted () {
     // Set default value props when placeholder undefined.
-    if (!this.placeholder) {
+    if (!this.placeholder || this.value !== '') {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
 
