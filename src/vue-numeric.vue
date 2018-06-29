@@ -1,13 +1,13 @@
 <template>
   <input
+    v-if="!readOnly"
+    ref="numeric"
+    v-model="amount"
     :placeholder="placeholder"
+    type="tel"
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
-    ref="numeric"
-    type="tel"
-    v-model="amount"
-    v-if="!readOnly"
   >
   <span
     v-else
@@ -132,6 +132,7 @@ export default {
     value: {
       default: '',
       required: true,
+      type: [String, Number],
       validator: (value) => {
         return value === null ||
                typeof value === 'number' ||

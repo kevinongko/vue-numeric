@@ -264,7 +264,7 @@ describe('vue-numeric.vue', () => {
   it('apply no value if emptyValue is null', () => {
     const component = Vue.extend({
       data: () => ({ total: null }),
-      template: '<div><vue-numeric v-model="test" :emptyValue="null"></vue-numeric></div>',
+      template: '<div><vue-numeric v-model="total" :emptyValue="null"></vue-numeric></div>',
       components: { VueNumeric }
     })
 
