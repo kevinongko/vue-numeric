@@ -234,6 +234,11 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('1')
   })
 
+  it('allows a null empty value when the input is empty', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: '', emptyValue: null }})
+    expect(wrapper.data().amount).to.equal(null)
+  })
+
   it('apply min props value if user input negative value when minus props disabled', () => {
     const component = Vue.extend({
       data: () => ({ total: -200 }),
@@ -254,6 +259,17 @@ describe('vue-numeric.vue', () => {
 
     const wrapper = mount(component)
     expect(wrapper.data().total).to.equal(0)
+  })
+
+  it('apply no value if emptyValue is null', () => {
+    const component = Vue.extend({
+      data: () => ({ total: null }),
+      template: '<div><vue-numeric v-model="total" :emptyValue="null"></vue-numeric></div>',
+      components: { VueNumeric }
+    })
+
+    const wrapper = mount(component)
+    expect(wrapper.data().total).to.equal(null)
   })
 
   it('apply new separator immediately if it is changed', () => {
