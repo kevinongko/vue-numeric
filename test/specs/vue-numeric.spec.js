@@ -219,10 +219,16 @@ describe('vue-numeric.vue', () => {
     expect(process.called).to.equal(true)
   })
 
-  it('does not show default value when placeholder if defined', () => {
-    const wrapper = mount(VueNumeric, { propsData: { value: 2000, placeholder: 'number here' }})
+  it('does not show default value when placeholder if defined and input is empty', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: '', placeholder: 'number here' }})
     expect(wrapper.data().amount).to.equal('')
   })
+
+  it('ignore placeholder when input is not empty', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000, placeholder: 'number here' }})
+    expect(wrapper.data().amount).to.equal('2,000')
+  })
+
 
   it('sets the value to 0 when no empty value is provided and input is empty', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: '' }})
