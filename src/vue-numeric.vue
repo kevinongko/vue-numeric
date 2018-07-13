@@ -6,7 +6,7 @@
     @focus="onFocusHandler"
     ref="numeric"
     type="tel"
-    v-model="amount"
+    :value="amount"
     v-if="!readOnly"
   >
   <span
@@ -68,7 +68,7 @@ export default {
     },
 
     /**
-     * Value when the input is empty
+     * Value when the input is empty.
      */
     emptyValue: {
       type: [Number, String],
@@ -161,6 +161,15 @@ export default {
       type: String,
       default: 'prefix',
       required: false
+    },
+
+    /**
+     * Function to process input value before format.
+     */
+    intermediateInputHandler: {
+      type: Function,
+      default: null,
+      required: false,
     }
   },
 
@@ -314,7 +323,9 @@ export default {
     /**
      * Handle input event.
      */
-    onInputHandler () {
+    onInputHandler (e) {
+      this.amount = this.intermediateInputHandler instanceof Function && this.intermediateInputHandler
+        ? this.intermediateInputHandler(e.target.value) : e.target.value
       this.process(this.amountNumber)
     },
 
