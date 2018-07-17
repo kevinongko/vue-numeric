@@ -166,7 +166,7 @@ export default {
     /**
      * Function to process input value before format.
      */
-    intermediateInputHandler: {
+    inputFilter: {
       type: Function,
       default: null,
       required: false,
@@ -324,8 +324,8 @@ export default {
      * Handle input event.
      */
     onInputHandler (e) {
-      this.amount = this.intermediateInputHandler instanceof Function && this.intermediateInputHandler
-        ? this.intermediateInputHandler(e.target.value) : e.target.value
+      this.amount = this.inputFilter instanceof Function && this.inputFilter
+        ? this.inputFilter(e.target.value) : e.target.value
       this.process(this.amountNumber)
     },
 
