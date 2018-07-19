@@ -8,7 +8,7 @@
     type="tel"
     v-model="amount"
     v-if="!readOnly"
-    :disabled='disabled'
+    :disabled="disabled"
   >
   <span
     v-else
