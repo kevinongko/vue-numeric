@@ -109,6 +109,28 @@ describe('vue-numeric.vue', () => {
     })
   })
 
+  it('is is not disabled when disabled mode is disabled', done => {
+    const propsData = { value: 3000, disabled: true }
+    const wrapper = mount(VueNumeric, { propsData })
+
+    wrapper.setProps({ disabled: false })
+    wrapper.instance().$nextTick(() => {
+      expect(wrapper.instance().$el.hasAttribute('disabled')).to.equal(false)
+      done()
+    })
+  })
+
+  it('is disabled in disabled mode', done => {
+    const propsData = { value: 3000, disabled: false }
+    const wrapper = mount(VueNumeric, { propsData })
+
+    wrapper.setProps({ disabled: true })
+    wrapper.instance().$nextTick(() => {
+      expect(wrapper.instance().$el.hasAttribute('disabled')).to.equal(true)
+      done()
+    })
+  });
+
   it('cannot exceed max props', () => {
     const component = Vue.extend({
       data: () => ({ total: 150 }),

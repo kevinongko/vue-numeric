@@ -8,6 +8,7 @@
     type="tel"
     v-model="amount"
     v-if="!readOnly"
+    :disabled='disabled'
   >
   <span
     v-else
@@ -153,6 +154,12 @@ export default {
       required: false
     },
 
+    disabled: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+
     /**
      * Position of currency symbol
      * Symbol position props accept either 'suffix' or 'prefix' (default).
@@ -161,7 +168,7 @@ export default {
       type: String,
       default: 'prefix',
       required: false
-    }
+    },
   },
 
   data: () => ({
