@@ -7,7 +7,10 @@ module.exports = config => {
     browsers: ['PhantomJS'],
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: ['specs/*.spec.js'],
+    files: [
+      '../node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
+      'specs/*.spec.js'
+    ],
     preprocessors: {
       './specs/*.spec.js': ['webpack', 'sourcemap']
     },

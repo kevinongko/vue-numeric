@@ -1,13 +1,11 @@
 <template>
   <input
-    :placeholder="placeholder"
-    @blur="onBlurHandler"
-    @input="onInputHandler"
-    @focus="onFocusHandler"
-    ref="numeric"
-    type="tel"
-    v-model="amount"
     v-if="!readOnly"
+    ref="numeric"
+    v-model="amount"
+    :placeholder="placeholder"
+    type="tel"
+    v-on="inputListeners"
   >
   <span
     v-else
@@ -193,6 +191,21 @@ export default {
       if (typeof this.decimalSeparator !== 'undefined') return this.decimalSeparator
       if (this.separator === ',') return '.'
       return ','
+    },
+
+    /**
+     * Define listeners to attach to the input
+     */
+    inputListeners () {
+      var vm = this;
+      return Object.assign({},
+        this.$listeners,
+        {
+          blur: vm.onBlurHandler,
+          input: vm.onInputHandler,
+          focus: vm.onFocusHandler,
+        }
+      );
     },
 
     /**
