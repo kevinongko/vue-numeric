@@ -4,7 +4,7 @@
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
-    @change='onChangeHandler'
+    @change="onChangeHandler"
     ref="numeric"
     type="tel"
     v-model="amount"
