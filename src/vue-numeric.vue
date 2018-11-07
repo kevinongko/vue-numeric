@@ -318,12 +318,12 @@ export default {
     onInputHandler () {
       this.process(this.amountNumber)
     },
-    
+
     /**
      * Emit change event
      */
     onChangeHandler(event){
-      this.$emit("change",event);
+      this.$emit("change", this.amount , event);
     },
 
     /**
