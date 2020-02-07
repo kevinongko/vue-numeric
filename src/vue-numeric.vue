@@ -8,6 +8,7 @@
     type="tel"
     v-model="amount"
     v-if="!readOnly"
+    :readonly="readOnlyInput"
   >
   <span
     v-else
@@ -150,6 +151,14 @@ export default {
     readOnlyClass: {
       type: String,
       default: '',
+      required: false
+    },
+     /**
+     * Show value in input .
+     */
+    readOnlyInput: {
+      type: Boolean,
+      default: false,
       required: false
     },
 
