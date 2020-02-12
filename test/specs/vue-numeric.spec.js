@@ -194,10 +194,10 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('2,000')
   })
 
-  it('clear the field if zero value', () => {
+  it('Default 0.00 if empty', () => {
     const wrapper = mount(VueNumeric, {propsData: { value: 0, separator: '.', precision: 2 }})
     wrapper.trigger('focus')
-    expect(wrapper.data().amount).to.equal(null)
+    expect(wrapper.data().amount).to.equal('0.00')
   })
 
   

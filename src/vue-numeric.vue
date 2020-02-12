@@ -3,7 +3,6 @@
     :placeholder="placeholder"
     @blur="onBlurHandler"
     @input="onInputHandler"
-    
     @focus="onFocusHandler"
     ref="numeric"
     type="tel"
@@ -75,7 +74,7 @@ export default {
      */
     emptyValue: {
       type: [Number, String],
-      default: '',
+      default: '0.00',
       required: false
     },
 
@@ -315,7 +314,7 @@ export default {
     onFocusHandler (e) {
       
       this.$emit('focus', e)
-      if(this.valueNumber === 0)  this.amount = null
+      if(this.valueNumber === 0)  this.amount = '0.00'
   
      if(this.autoselect === true) e.target.select()
       

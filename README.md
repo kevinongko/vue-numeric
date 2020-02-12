@@ -161,7 +161,7 @@ Autoselect content when activating focus..
 |min|Minimum value allowed|false|Number|-9007199254740991|
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
-|empty-value|Value when input is empty|false|Number|0|
+|empty-value|Value when input is empty|false|Number|0.00|
 |output-type|Output Type for input event|false|String|`String`|
 |precision|Number of decimals|false|Number|-|
 |separator|Thousand separator symbol (accepts `space`, `.` or `,`)|false|String|`,`|
