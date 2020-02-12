@@ -200,17 +200,7 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal(null)
   })
 
-  it('remove thousand separator and symbol on focus with , decimal', () => {
-    const wrapper = mount(VueNumeric, {propsData: { value: 2000.21, separator: '.', precision: 2 }})
-    wrapper.trigger('focus')
-    expect(wrapper.data().amount).to.equal('2000,21')
-  })
-
-  it('remove thousand separator and symbol on focus with . decimal', () => {
-    const wrapper = mount(VueNumeric, {propsData: { value: 2000.21, separator: ',', precision: 2 }})
-    wrapper.trigger('focus')
-    expect(wrapper.data().amount).to.equal('2000.21')
-  })
+  
 
   it('process value on input', () => {
     const process = sinon.stub()

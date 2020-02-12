@@ -3,13 +3,14 @@
     :placeholder="placeholder"
     @blur="onBlurHandler"
     @input="onInputHandler"
+    
     @focus="onFocusHandler"
     ref="numeric"
     type="tel"
     v-model="amount"
     v-if="!readOnly"
     :readonly="readOnlyInput"
-    :autoselect=false
+    
   >
   <span
     v-else
@@ -162,6 +163,11 @@ export default {
       default: false,
       required: false
     },
+    autoselect: {
+      type:Boolean,
+      default: false,
+      required: false
+    },
 
     /**
      * Position of currency symbol
@@ -307,21 +313,12 @@ export default {
      * @param {Object} e
      */
     onFocusHandler (e) {
+      
       this.$emit('focus', e)
-      if (this.valueNumber === 0) {
-        this.amount = null
-      } else {
-        this.amount = accounting.formatMoney(this.valueNumber, {
-          symbol: '',
-          format: '%v',
-          thousand: '',
-          decimal: this.decimalSeparatorSymbol,
-          precision: Number(this.precision)
-        })
-        if(this.autoselect) {
-          $event.target.select()
-        }
-      }
+      if(this.valueNumber === 0)  this.amount = null
+  
+     if(this.autoselect === true) e.target.select()
+      
     },
 
     /**

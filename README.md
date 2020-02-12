@@ -1,8 +1,8 @@
 # vue-numeric
 
-[![npm](https://img.shields.io/npm/v/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric)
-[![npm](https://img.shields.io/npm/dt/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric)
-[![npm](https://img.shields.io/npm/dm/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric)
+[![npm](https://img.shields.io/badge/npm-v2.0.4.1-blue)](https://www.npmjs.com/package/vue-numeric-currency)
+[![npm](https://img.shields.io/npm/dt/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric-currency)
+[![npm](https://img.shields.io/npm/dm/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric-currency)
 [![Build Status](https://img.shields.io/travis/kevinongko/vue-numeric.svg?style=flat-square)](https://travis-ci.org/kevinongko/vue-numeric)
 [![Codecov](https://img.shields.io/codecov/c/github/kevinongko/vue-numeric.svg?style=flat-square)](https://codecov.io/gh/kevinongko/vue-numeric)
 [![npm](https://img.shields.io/npm/l/vue-numeric.svg?style=flat-square)](http://opensource.org/licenses/MIT)
@@ -19,7 +19,7 @@ Input field component to display a formatted currency value based on [Vue](https
 ```html
 <script src="https://unpkg.com/accounting-js"></script>
 <script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vue-numeric"></script>
+<script src="https://unpkg.com/vue-numeric-currency"></script>
 
 <script>
   Vue.use(VueNumeric.default)
@@ -27,13 +27,14 @@ Input field component to display a formatted currency value based on [Vue](https
 ```
 ### Install via NPM
 ```sh
-$ npm install vue-numeric --save
+$ npm install vue-numeric-currency --save
 ```
 
 #### Register as Component
 ```js
 import Vue from 'vue'
-import VueNumeric from 'vue-numeric'
+import VueNumeric from 'vue-numeric-currency'
+
 
 export default {
   name: 'App',
@@ -47,7 +48,7 @@ export default {
 #### Register as Plugin
 ```js
 import Vue from 'vue'
-import VueNumeric from 'vue-numeric'
+import VueNumeric from 'vue-numeric-currency'
 
 Vue.use(VueNumeric)
 ```
@@ -144,6 +145,13 @@ by setting the property `output-type` to `String`.
 <vue-numeric output-type="String"></vue-numeric>
 ```  
 
+### Select
+Autoselect content when activating focus..
+```vue
+<vue-numeric autoselect></vue-numeric>
+```  
+
+
 ## Props
 |Props|Description|Required|Type|Default|
 |-----|-----------|--------|----|-------|
@@ -161,12 +169,15 @@ by setting the property `output-type` to `String`.
 |thousand-separator|Custom thousand separator|false|String|-|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
+|readOnlyInput|Apply standard readonly to Input|false|Boolean|false|
+|autoselect|Used to select the content of the field.|false|Boolean|false|
+
 
 ## License
 
 Vue-Numeric is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
 ## Support
-Hello, I'm Kevin the maintainer of this project in my free time (which is getting lessen these days), if this project does help you in any way please consider to support me. Thanks :smiley:
-- [One-time donation via Paypal](https://www.paypal.me/kevinongko)
+Hello, I'm Wanderlei the maintainer of this project in my free time (which is getting lessen these days), if this project does help you in any way please consider to support me. Thanks :smiley:
+- [One-time donation via Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZKWR4XMPY6RP8&source=url)
 
