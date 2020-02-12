@@ -1,15 +1,15 @@
 {
-  "name": "vue-numeric",
+  "name": "vue-numeric-currency",
   "version": "2.3.0",
   "description": "Input field component to display currency value based on Vue.",
-  "author": "Kevin Ongko",
+  "author": "Wanderlei Borba Cordeiro",
   "main": "dist/vue-numeric.min.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevinongko/vue-numeric.git"
+    "url": "git+https://github.com/whande1992/vue-numeric.git"
   },
   "bugs": {
-    "url": "https://github.com/kevinongko/vue-numeric/issues"
+    "url": "https://github.com/whande1992/vue-numeric/issues"
   },
   "keywords": [
     "component",

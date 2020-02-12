@@ -9,6 +9,7 @@
     v-model="amount"
     v-if="!readOnly"
     :readonly="readOnlyInput"
+    :autoselect=false
   >
   <span
     v-else
@@ -317,6 +318,9 @@ export default {
           decimal: this.decimalSeparatorSymbol,
           precision: Number(this.precision)
         })
+        if(this.autoselect) {
+          $event.target.select()
+        }
       }
     },
 
