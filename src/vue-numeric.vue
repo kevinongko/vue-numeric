@@ -4,6 +4,7 @@
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
+    @change="onChangeHandler"
     ref="numeric"
     type="tel"
     v-model="amount"
@@ -283,6 +284,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Handle change event.
+     * @param {Object} e
+     */
+    onChangeHandler (e) {
+      this.$emit('change', e)
+    },
     /**
      * Handle blur event.
      * @param {Object} e
