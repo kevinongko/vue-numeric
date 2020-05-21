@@ -1,13 +1,14 @@
 <template>
   <input
+    v-if="!readOnly"
+    ref="numeric"
     :placeholder="placeholder"
+    v-model="amount"
+    type="tel"
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
-    ref="numeric"
-    type="tel"
-    v-model="amount"
-    v-if="!readOnly"
+    @change="onChangeHandler"
   >
   <span
     v-else
@@ -283,6 +284,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Handle change event.
+     * @param {Object} e
+     */
+    onChangeHandler (e) {
+      this.$emit('change', e)
+    },
     /**
      * Handle blur event.
      * @param {Object} e
