@@ -274,7 +274,7 @@ export default {
   },
 
   mounted () {
-    // Set default value props when valueNumber has some value 
+    // Set default value props when valueNumber has some value
     if (this.valueNumber) {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
