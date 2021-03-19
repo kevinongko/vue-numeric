@@ -3,6 +3,7 @@
     v-if="!readOnly"
     ref="numeric"
     :placeholder="placeholder"
+    :disabled="disabled"
     v-model="amount"
     type="tel"
     @blur="onBlurHandler"
@@ -154,6 +155,12 @@ export default {
       required: false
     },
 
+    disabled: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+
     /**
      * Position of currency symbol
      * Symbol position props accept either 'suffix' or 'prefix' (default).
@@ -162,7 +169,7 @@ export default {
       type: String,
       default: 'prefix',
       required: false
-    }
+    },
   },
 
   data: () => ({
