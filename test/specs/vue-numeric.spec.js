@@ -307,4 +307,10 @@ describe('vue-numeric.vue', () => {
     })
     expect(wrapper.data().amount).to.equal('1 000,94')
   })
+  it('emit change event', () => {
+    const process = sinon.stub()
+    const wrapper = mount(VueNumeric, { propsData: { value: 2000 }, methods: { process }})
+    wrapper.trigger('change')
+    expect(process.called).to.equal(true)
+  })
 })

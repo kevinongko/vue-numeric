@@ -1,14 +1,15 @@
 <template>
   <input
+    v-if="!readOnly"
+    ref="numeric"
     :placeholder="placeholder"
+    :disabled="disabled"
+    v-model="amount"
+    type="tel"
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
-    ref="numeric"
-    type="tel"
-    v-model="amount"
-    v-if="!readOnly"
-    :disabled="disabled"
+    @change="onChangeHandler"
   >
   <span
     v-else
@@ -273,8 +274,8 @@ export default {
   },
 
   mounted () {
-    // Set default value props when placeholder undefined.
-    if (!this.placeholder) {
+    // Set default value props when valueNumber has some value 
+    if (this.valueNumber) {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
 
@@ -290,6 +291,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Handle change event.
+     * @param {Object} e
+     */
+    onChangeHandler (e) {
+      this.$emit('change', e)
+    },
     /**
      * Handle blur event.
      * @param {Object} e
