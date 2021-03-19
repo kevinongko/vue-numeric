@@ -5,3 +5,5 @@ node_modules
 /test/coverage/
 /.vscode
 /.idea
+*.swp
+*.swo
