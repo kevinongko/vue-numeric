@@ -275,7 +275,7 @@ export default {
 
   mounted () {
     // Set default value props when valueNumber has some value
-    if (this.valueNumber) {
+    if (this.valueNumber || this.isDeliberatelyZero()) {
       this.process(this.valueNumber)
       this.amount = this.format(this.valueNumber)
 
@@ -377,6 +377,14 @@ export default {
     unformat (value) {
       const toUnformat = typeof value === 'string' && value === '' ? this.emptyValue : value
       return accounting.unformat(toUnformat, this.decimalSeparatorSymbol)
+    },
+
+    /**
+     * Check if value was deliberately set to zero and not just evaluated
+     * @return {boolean}
+     */
+    isDeliberatelyZero () {
+      return this.valueNumber === 0 && this.value !== '';
     }
   }
 }

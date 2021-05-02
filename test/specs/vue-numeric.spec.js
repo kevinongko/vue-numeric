@@ -313,4 +313,8 @@ describe('vue-numeric.vue', () => {
     wrapper.trigger('change')
     expect(process.called).to.equal(true)
   })
+  it('initial value is 0 if zero is passed', () => {
+    const wrapper = mount(VueNumeric, { propsData: { value: 0}})
+    expect(wrapper.data().amount).to.equal('0')
+  })
 })
