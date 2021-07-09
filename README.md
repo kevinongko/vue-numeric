@@ -154,7 +154,7 @@ by setting the property `output-type` to `String`.
 |minus|Enable/disable negative values|false|Boolean|`false`|
 |placeholder|Input placeholder|false|String|-|
 |empty-value|Value when input is empty|false|Number|0|
-|output-type|Output Type for input event|false|String|`String`|
+|output-type|Output Type for input event|false|String|`Number`|
 |precision|Number of decimals|false|Number|-|
 |separator|Thousand separator symbol (accepts `space`, `.` or `,`)|false|String|`,`|
 |decimal-separator|Custom decimal separator|false|String|-|
