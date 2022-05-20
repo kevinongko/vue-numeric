@@ -5,7 +5,7 @@
     :placeholder="placeholder"
     :disabled="disabled"
     v-model="amount"
-    type="tel"
+    :type="allowClear ? 'search' : 'tel'"
     @blur="onBlurHandler"
     @input="onInputHandler"
     @focus="onFocusHandler"
@@ -24,6 +24,15 @@ export default {
   name: 'VueNumeric',
 
   props: {
+    /**
+     * Allow clear.
+     */
+    allowClear: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+
     /**
      * Currency symbol.
      */

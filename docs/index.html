@@ -34,6 +34,8 @@
               <vue-numeric
                 class="input is-large"
                 v-model="money"
+                :allow-clear="allowClear"
+                :empty-value="emptyValue"
                 :min="minValue"
                 :max="maxValue"
                 :currency="currency"
@@ -78,6 +80,12 @@
             </p>
           </div>
           <div class="column is-12">
+            <p class="control">
+              <label class="label"> Empty Value </label>
+              <input class="input" type="text" v-model="emptyValue">
+            </p>
+          </div>
+          <div class="column is-12">
             <label class="label"> Separator </label>
             <p class="control">
               <label class="radio">
@@ -98,6 +106,12 @@
             <p class="control">
               <input type="checkbox" v-model="readOnly">
               Read Only
+            </p>
+          </div>
+          <div class="column is-12">
+            <p class="control">
+              <input type="checkbox" v-model="allowClear">
+              Allow clear
             </p>
           </div>
         </div>
@@ -143,6 +157,8 @@
 
         data:  {
           money: 1000,
+          allowClear: true,
+          emptyValue: '',
           minValue: 0,
           maxValue: 999999,
           currency: '$',
