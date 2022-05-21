@@ -322,8 +322,8 @@ export default {
      */
     onFocusHandler (e) {
       this.$emit('focus', e)
-      if (this.valueNumber === 0) {
-        this.amount = null
+      if(typeof this.valueNumber === 'string' && this.valueNumber === '') {
+        return ''
       } else {
         this.amount = accounting.formatMoney(this.valueNumber, {
           symbol: '',
@@ -347,10 +347,13 @@ export default {
      * @param {Number} value
      */
     process (value) {
-      if (value >= this.max) this.update(this.max)
-      if (value <= this.min) this.update(this.min)
-      if (value > this.min && value < this.max) this.update(value)
-      if (!this.minus && value < 0) this.min >= 0 ? this.update(this.min) : this.update(0)
+      if(typeof value === 'string' && value === '') this.$emit('input', value)
+      else {
+        if (value >= this.max) this.update(this.max)
+        if (value <= this.min) this.update(this.min)
+        if (value > this.min && value < this.max) this.update(value)
+        if (!this.minus && value < 0) this.min >= 0 ? this.update(this.min) : this.update(0)
+      }
     },
 
     /**
@@ -369,6 +372,7 @@ export default {
      * @return {String}
      */
     format (value) {
+      if(typeof value === 'string' && value === '') return ''
       return accounting.formatMoney(value, {
         symbol: this.currency,
         format: this.symbolPosition,
@@ -385,6 +389,7 @@ export default {
      */
     unformat (value) {
       const toUnformat = typeof value === 'string' && value === '' ? this.emptyValue : value
+      if(typeof toUnformat === 'string' && toUnformat === '') return ''
       return accounting.unformat(toUnformat, this.decimalSeparatorSymbol)
     },
 
