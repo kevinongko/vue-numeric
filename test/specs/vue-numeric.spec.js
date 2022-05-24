@@ -58,9 +58,9 @@ describe('vue-numeric.vue', () => {
 
   it('outputs Number type by default', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: 100 }),
       template: '<div><vue-numeric v-model="total" :min="1" :max="100"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -69,9 +69,9 @@ describe('vue-numeric.vue', () => {
 
   it('outputs String if specified', () => {
     const component = Vue.extend({
+        components: { VueNumeric },
         data: () => ({ total: 100 }),
         template: '<div><vue-numeric v-model="total" outputType="String" :min="1" :max="100"></vue-numeric></div>',
-        components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -133,9 +133,9 @@ describe('vue-numeric.vue', () => {
 
   it('cannot exceed max props', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: 150 }),
       template: '<div><vue-numeric v-model="total" :max="100"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -144,9 +144,9 @@ describe('vue-numeric.vue', () => {
 
   it('cannot below min props', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: 150 }),
       template: '<div><vue-numeric v-model="total" :min="200"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -155,9 +155,9 @@ describe('vue-numeric.vue', () => {
 
   it('process valid value ', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: 100 }),
       template: '<div><vue-numeric v-model="total" :min="10" :max="200"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -166,9 +166,9 @@ describe('vue-numeric.vue', () => {
 
   it('allow minus value when minus props is true', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: -150 }),
       template: '<div><vue-numeric v-model="total" :min="-150" :minus="true"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -177,9 +177,9 @@ describe('vue-numeric.vue', () => {
 
   it('disallow minus value when minus props is false', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: -150 }),
       template: '<div><vue-numeric v-model="total" :min="-150" :minus="false"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -190,9 +190,9 @@ describe('vue-numeric.vue', () => {
     const el = document.createElement('div')
     const vm = new Vue({
       el,
+      components: { VueNumeric },
       data: () => ({ total: 0 }),
       template: '<div><vue-numeric v-model="total"></vue-numeric></div>',
-      components: { VueNumeric }
     }).$mount()
 
     setTimeout(() => {
@@ -216,10 +216,10 @@ describe('vue-numeric.vue', () => {
     expect(wrapper.data().amount).to.equal('2,000')
   })
 
-  it('clear the field if zero value', () => {
-    const wrapper = mount(VueNumeric, {propsData: { value: 0, separator: '.', precision: 2 }})
+  it('on focus empty string return empty string', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: '', separator: '.', precision: 2 }})
     wrapper.trigger('focus')
-    expect(wrapper.data().amount).to.equal(null)
+    expect(wrapper.data().amount).to.equal('')
   })
 
   it('remove thousand separator and symbol on focus with , decimal', () => {
@@ -258,9 +258,9 @@ describe('vue-numeric.vue', () => {
 
   it('apply min props value if user input negative value when minus props disabled', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: -200 }),
       template: '<div><vue-numeric v-model="total" :min="150" :minus="false"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -269,9 +269,9 @@ describe('vue-numeric.vue', () => {
 
   it('apply 0 value if user input negative value when minus props disabled and min props is negative too', () => {
     const component = Vue.extend({
+      components: { VueNumeric },
       data: () => ({ total: -200 }),
       template: '<div><vue-numeric v-model="total" :min="-150" :minus="false"></vue-numeric></div>',
-      components: { VueNumeric }
     })
 
     const wrapper = mount(component)
@@ -307,14 +307,30 @@ describe('vue-numeric.vue', () => {
     })
     expect(wrapper.data().amount).to.equal('1 000,94')
   })
+
   it('emit change event', () => {
     const process = sinon.stub()
     const wrapper = mount(VueNumeric, { propsData: { value: 2000 }, methods: { process }})
     wrapper.trigger('change')
     expect(process.called).to.equal(true)
   })
+
   it('initial value is 0 if zero is passed', () => {
     const wrapper = mount(VueNumeric, { propsData: { value: 0}})
     expect(wrapper.data().amount).to.equal('0')
+  })
+
+  it('when format empty string should return empty string', () => {
+    const wrapper = mount(VueNumeric, {propsData: { value: '', separator: '.', precision: 2 }})
+    expect(wrapper.vm.format('')).to.equal('')
+  })
+
+  it('emit input event when process empty string', () => {
+    const update = sinon.stub()
+    const wrapper = mount(VueNumeric, {propsData: { value: '', separator: '.', precision: 2 }, methods: { update }})
+    const spy = sinon.spy(wrapper.vm, '$emit')
+    wrapper.trigger('input')
+    expect(update.called).to.equal(false)
+    expect(spy.args[0][0]).to.equal('input')
   })
 })

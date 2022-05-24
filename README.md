@@ -142,7 +142,7 @@ By default the value emitted for the input event is of type `Number`. However yo
 by setting the property `output-type` to `String`.
 ```vue
 <vue-numeric output-type="String"></vue-numeric>
-```  
+```
 
 ## Props
 |Props|Description|Required|Type|Default|
@@ -161,6 +161,7 @@ by setting the property `output-type` to `String`.
 |thousand-separator|Custom thousand separator|false|String|-|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
+|allow-clear|Use input type search|false|Boolean|false|
 
 ## License
 
