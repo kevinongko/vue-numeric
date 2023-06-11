@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/dt/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric)
 [![npm](https://img.shields.io/npm/dm/vue-numeric.svg?style=flat-square)](https://www.npmjs.com/package/vue-numeric)
-[![Build Status](https://github.com/kevinongko/vue-numeric/actions/workflows/node.js.yml/badge.svg)
+[![Node.js CI](https://github.com/kevinongko/vue-numeric/actions/workflows/node.js.yml/badge.svg)](https://github.com/kevinongko/vue-numeric/actions/workflows/node.js.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/kevinongko/vue-numeric.svg?style=flat-square)](https://codecov.io/gh/kevinongko/vue-numeric)
 [![npm](https://img.shields.io/npm/l/vue-numeric.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
